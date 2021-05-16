@@ -1,73 +1,87 @@
 import React from 'react';
-import {
-    View,
-    Text,
-    TextInput,
-    Image,
-    KeyboardAvoidingView,
-    ScrollView,
-    TouchableOpacity,
-} from 'react-native';
-import { Card, CardItem, Body, Content, Footer, FooterTab, Button,} from 'native-base';
-import { DashStyle } from '../components/Dash/DashStyle';
+import {View, Text, TextInput, Image, ScrollView} from 'react-native';
+import {Card, CardItem, Body, Footer, FooterTab, Button} from 'native-base';
+import {DashStyle} from '../components/Dash/DashStyle';
 
-const DashStuAllSchedule = ({navigation})=> {
-    const data ={
-        username:'Emir',
-        date: 'October 11'
-    };
-return(
-    <KeyboardAvoidingView behavior="padding">
+const DashStuAllSchedule = ({navigation}) => {
+  const data = {
+    username: 'Emir',
+    date: 'October 11',
+  };
+  return (
     <View style={DashStyle.body}>
-       
-    <View style={DashStyle.header}>
-        <Text style={DashStyle.welcome}>
-                Welcome back,
-        </Text>
-        
+      <View style={DashStyle.header}>
+        <Text style={DashStyle.welcome}>Welcome back,</Text>
+
         <Text style={DashStyle.username}>{data.username}</Text>
-        <TextInput style={DashStyle.searchBar} placeholder="Looking for something?"/>
-            
-    </View>
-        <Image source={require('../assets/images/Carousel.png')}
-         style={DashStyle.imgNews}   />
+        <TextInput
+          style={DashStyle.searchBar}
+          placeholder="Looking for something?"
+        />
+      </View>
+
+      <Image
+        source={require('../assets/images/Carousel.png')}
+        style={DashStyle.imgNews}
+      />
+      <ScrollView>
         <View style={DashStyle.container}>
-            <Card>
+          <Card>
             <CardItem header>
-                    <Text>My Class</Text>
+              <Text>My Class</Text>
             </CardItem>
             <CardItem>
-                <Body>
-                    <Text>  Today, {data.date}</Text>
-                </Body>
+              <Body>
+                <Text> Today, {data.date}</Text>
+              </Body>
+            </CardItem>
+            <CardItem>
+              <Body>
+                <Text> Tomorrow, {data.date}</Text>
+              </Body>
+            </CardItem>
+            <CardItem>
+              <Body>
+                <Text> Today, {data.date}</Text>
+              </Body>
             </CardItem>
             <CardItem footer>
-                    <Text style={DashStyle.chooseSchedule}>All Schedule          For You</Text>
+              <Text style={DashStyle.chooseSchedule}>All Schedule For You</Text>
             </CardItem>
-         </Card>
-            </View>
-       
-        <Footer>
-            <FooterTab>
-                <Button>
-                    <Image source={require('../assets/images/Home-On.png')}/>
-                </Button>
-                <Button>
-                    <Image source={require('../assets/images/Act-Off.png')} />
-                </Button>
-                <Button active>
-                    <Image source={require('../assets/images/Chat-Off.png')} />
-                </Button>
-                <Button>
-                    <Image source={require('../assets/images/Prof-Off.png')} />
-                </Button>
-            </FooterTab>
-        </Footer>
-            
-        
-        </View></KeyboardAvoidingView>
+          </Card>
+        </View>
+      </ScrollView>
 
-);
+      <Footer>
+        <FooterTab>
+          <Button style={DashStyle.footer}>
+            <Image source={require('../assets/images/Home-On.png')} />
+          </Button>
+          <Button
+            style={DashStyle.footer}
+            onPress={() => {
+              navigation.navigate('ActStuNewClass');
+            }}>
+            <Image source={require('../assets/images/Act-Off.png')} />
+          </Button>
+          <Button
+            style={DashStyle.footer}
+            onPress={() => {
+              navigation.navigate('Chat');
+            }}>
+            <Image source={require('../assets/images/Chat-Off.png')} />
+          </Button>
+          <Button
+            style={DashStyle.footer}
+            onPress={() => {
+              navigation.navigate('Profile');
+            }}>
+            <Image source={require('../assets/images/Prof-Off.png')} />
+          </Button>
+        </FooterTab>
+      </Footer>
+    </View>
+  );
 };
 
 export default DashStuAllSchedule;

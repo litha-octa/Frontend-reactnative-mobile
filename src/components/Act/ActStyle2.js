@@ -1,6 +1,5 @@
 import {StyleSheet} from 'react-native';
-
-export const ActStyle = StyleSheet.create({
+export const ActStyle2 = StyleSheet.create({
   header: {
     backgroundColor: '#5784BA',
     height: 100,
@@ -10,7 +9,7 @@ export const ActStyle = StyleSheet.create({
   },
   body: {
     backgroundColor: '#E6EDF6',
-    height: '100%',
+    height:'100%',
   },
   backIcon: {
     marginRight: 10,
@@ -24,12 +23,11 @@ export const ActStyle = StyleSheet.create({
     fontStyle: 'normal',
     fontWeight: 'bold',
     marginLeft: '5%',
-    marginTop: '-8%',
   },
   subtitle: {
     fontFamily: 'Montserrat-Medium',
     fontStyle: 'normal',
-    fontWeight: '600',
+    fontWeight: 'bold',
     fontSize: 18,
     color: '#000000',
     padding: '3%',
@@ -46,7 +44,45 @@ export const ActStyle = StyleSheet.create({
     backgroundColor: 'white',
     margin: '2%',
   },
-  footerbtn: {
+  viewAll: {
+    textAlign: 'center',
+  },
+  container: {
+    width: '90%',
+    alignSelf: 'center',
+    marginTop: 15,
+  },
+  searchbar: {
+    borderWidth: 1,
+    height: 40,
+    width: '78%',
+    borderRadius: 5,
+  },
+  searchbutton: {
+    backgroundColor: '#5784BA',
+    width: '20%',
+    height: 40,
+    borderRadius: 5,
+    marginTop: -40,
+    marginLeft: '80%',
+  },
+  buttonLabel: {
+    color: 'white',
+    fontFamily: 'Kanit-Medium',
+    fontSize: 15,
+    fontStyle: 'normal',
+    fontWeight: 'bold',
+  },
+  filter: {
+    backgroundColor: '#EEEEEE',
+    width: '96%',
+    alignSelf: 'center',
+  },
+  registerBtn: {
+    width: 40,
+    marginTop: '2%',
+  },
+  footer: {
     backgroundColor: 'white',
   },
 });
