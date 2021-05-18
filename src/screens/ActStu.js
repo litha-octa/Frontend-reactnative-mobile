@@ -12,7 +12,7 @@ import {
   Button,
 } from 'native-base';
 
-function ActStu({navigation}) {
+function ActStuMyClass({navigation}) {
   const classData = {
     name: 'Front-end fundamentals',
     progress: '80%',
@@ -34,7 +34,7 @@ function ActStu({navigation}) {
       </View>
       <ScrollView>
         <View>
-          <Text style={ActStyle.subtitle}>Class Name Progress Score</Text>
+          <Text style={ActStyle.subtitle}>Class Name              Progress                  Score</Text>
 
           <List style={ActStyle.listItem}>
             <ListItem>
@@ -103,4 +103,4 @@ function ActStu({navigation}) {
     </View>
   );
 }
-export default ActStu;
+export default ActStuMyClass;

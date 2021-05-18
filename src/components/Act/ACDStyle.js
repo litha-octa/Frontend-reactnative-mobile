@@ -46,7 +46,7 @@ export const ACDStyle = StyleSheet.create({
     width: 100,
     height: 105,
     marginLeft: '5%',
-    marginTop: '15%',
+    marginTop: '35%',
   },
   descClass: {
     fontFamily: 'Montserrat-Medium',
@@ -54,8 +54,8 @@ export const ACDStyle = StyleSheet.create({
     fontWeight: '500',
     fontSize: 10,
     color: '#000000',
-    marginTop: '0%',
     marginLeft: '33%',
+    marginTop: '0%',
   },
   nameClass: {
     fontFamily: 'Montserrat-Medium',
@@ -63,13 +63,13 @@ export const ACDStyle = StyleSheet.create({
     fontWeight: '500',
     fontSize: 20,
     color: '#000000',
-    marginTop: '-13%',
+    marginTop: '-18%',
     marginLeft: '33%',
   },
   container: {
     backgroundColor: 'white',
-    marginTop: '7%',
-    padding: '5%',
+    padding: '4%',
+    marginTop: '10%',
   },
   titleDesc: {
     fontFamily: 'Montserrat-Medium',
@@ -77,6 +77,7 @@ export const ACDStyle = StyleSheet.create({
     fontWeight: '500',
     fontSize: 20,
     color: '#000000',
+    marginTop:30,
   },
   contentDesc: {
     fontFamily: 'Roboto-Medium',
@@ -85,6 +86,13 @@ export const ACDStyle = StyleSheet.create({
     fontSize: 14,
     marginBottom: 20,
     marginTop: 10,
+    color:'black',
+  },
+  nameMember:{
+    marginLeft:20, 
+    color:'black',
+    fontFamily: 'Kanit-Medium',
+    fontWeight:'bold',
   },
   footer: {
     backgroundColor: 'white',

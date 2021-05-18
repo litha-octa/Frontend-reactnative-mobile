@@ -56,7 +56,7 @@ function ActStuNewClass({navigation}) {
           <Text
             style={ActStyle2.viewAll}
             onPress={() => {
-              navigation.navigate('ActStu');
+              navigation.navigate('ActStuMyClass');
             }}>
             View All
           </Text>

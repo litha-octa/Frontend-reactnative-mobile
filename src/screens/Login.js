@@ -37,7 +37,11 @@ const Login = ({navigation}) => {
           <Text style={LoginStyle.labelButtonLogin}>Login</Text>
         </TouchableOpacity>
 
-        <TouchableOpacity style={LoginStyle.buttonLoginWithGoogle}>
+        <TouchableOpacity
+          style={LoginStyle.buttonLoginWithGoogle}
+          onPress={() => {
+            navigation.navigate('ActivityFas');
+          }}>
           <Image
             source={require('../assets/images/logogoogle.png')}
             style={LoginStyle.logoBtn}

@@ -19,13 +19,14 @@ const DashStuAllSchedule = ({navigation}) => {
           placeholder="Looking for something?"
         />
       </View>
-
-      <Image
-        source={require('../assets/images/Carousel.png')}
-        style={DashStyle.imgNews}
-      />
       <ScrollView>
-        <View style={DashStyle.container}>
+        <View>
+          <Image
+            source={require('../assets/images/Carousel.png')}
+            style={DashStyle.imgNews}
+          />
+        </View>
+        <View>
           <Card>
             <CardItem header>
               <Text>My Class</Text>

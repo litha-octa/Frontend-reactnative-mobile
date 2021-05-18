@@ -1,6 +1,6 @@
 import {StyleSheet} from 'react-native';
 
-export const DashStyle = StyleSheet.create({
+export const DashFasStyle = StyleSheet.create({
   body: {
     backgroundColor: '#E6EDF6',
     height: '100%',
@@ -33,7 +33,7 @@ export const DashStyle = StyleSheet.create({
     height: 200,
   },
   searchBar: {
-    backgroundColor: '#F9F9F9',
+    backgroundColor: '#E5E6EB',
     width: '96%',
     alignSelf: 'center',
     borderRadius: 20,
@@ -43,7 +43,23 @@ export const DashStyle = StyleSheet.create({
   chooseSchedule: {
     textAlign: 'center',
   },
+  date: {
+    fontWeight: '800',
+    fontSize: 16,
+    fontFamily: 'Roboto-Medium',
+    alignSelf: 'center',
+    width: 30,
+    marginRight: 25,
+  },
   footer: {
     backgroundColor: 'white',
+  },
+  createBtn: {
+    backgroundColor: '#5784BA',
+    alignSelf: 'center',
+    borderRadius: 30,
+    width: '30%',
+    flexDirection: 'row',
+    padding:10,
   },
 });
