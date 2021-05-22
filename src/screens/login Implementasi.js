@@ -1,5 +1,3 @@
-/* eslint-disable react-hooks/exhaustive-deps */
-
 import React, {useState, useEffect, useRef} from 'react';
 import {
   View,
@@ -10,7 +8,6 @@ import {
   TouchableOpacity,
   Dimensions,
 } from 'react-native';
-import {Icon} from 'native-base';
 import {LoginStyle} from '../components/auth/LoginStyle';
 import {login} from '../redux/actions/auth';
 import {connect} from 'react-redux';
@@ -20,10 +17,8 @@ function Login({...props}) {
   const [dataLogin, setDataLogin] = useState({username: '', password: ''});
   const [showPassword, setShowPassword] = useState(false);
   const [indicatorVisible, setIndicatorVisible] = useState(false);
-
   const [errorMessage, setErrorMessage] = useState('');
   const [errorMessageVisible, setErrorMessageVisible] = useState(false);
-
   const [zIndexInput, setZIndexInput] = useState({
     username: 1,
     password: 1,
@@ -32,8 +27,6 @@ function Login({...props}) {
     username: undefined,
     password: undefined,
   });
-
-  console.log(props.auth);
   const [isDisabled, setIsDisabled] = useState(true);
 
   const [componentWidth, setComponentWidth] = useState(
@@ -53,54 +46,12 @@ function Login({...props}) {
     };
   });
 
-  // =============================VALIDATION SECTION============================= //
-  // e-mails must be in the format x@x.x
-  const isValidEmailAddress = address => {
-    return !!address.match(/^[^\s@]+@[^\s@.]+\.[^\s@]+$/);
-  };
-  // username : min. length = 5
-  const usernameValidation = () => {
-    if (dataLogin.username === '') {
-      setInputValidation({...inputValidation, username: false});
-    } else if (dataLogin.username.length < 4) {
-      setInputValidation({...inputValidation, username: false});
-    } else if (dataLogin.username.includes('@')) {
-      if (!isValidEmailAddress(dataLogin.username)) {
-        setInputValidation({...inputValidation, username: false});
-      } else {
-        setInputValidation({...inputValidation, username: true});
-      }
-    } else {
-      setInputValidation({...inputValidation, username: true});
-    }
-  };
-
-  // password : min. length = 8
-  const passwordValidation = () => {
-    if (dataLogin.password === '') {
-      setInputValidation({...inputValidation, password: false});
-    } else if (dataLogin.password.length < 5) {
-      setInputValidation({...inputValidation, password: false});
-    } else {
-      setInputValidation({...inputValidation, password: true});
-    }
-  };
-
-  // =============================END VALIDATION SECTION============================= //
-
-  useEffect(() => {
-    if (inputValidation.username && inputValidation.password) {
-      setIsDisabled(false);
-    } else {
-      setIsDisabled(true);
-    }
-  }, [inputValidation]);
-
   const loginHandler = e => {
     e.preventDefault();
-    props.login(`${DOMAIN_API}:${PORT_API}/data/auth/login`, dataLogin);
+    console.log(dataLogin, DOMAIN_API, PORT_API);
+    // const data = {username: dataLogin.username, password: dataLogin.password};
+    props.login(`${DOMAIN_API}:${PORT_API}/api/v1/auth/`, dataLogin);
   };
-
   const ref = useRef();
   useEffect(() => {
     if (!ref.current) {
@@ -131,12 +82,7 @@ function Login({...props}) {
         }
       }
     }
-  }, [
-    props.auth.isLoginPending,
-    props.auth.isLoginFulfilled,
-    props.auth.isLoginRejected,
-  ]);
-
+  }, [props.auth]);
   return (
     <KeyboardAvoidingView behavior="padding">
       <View style={LoginStyle.body}>
@@ -147,54 +93,14 @@ function Login({...props}) {
           style={LoginStyle.inputLogin}
           value={dataLogin.username}
           onChangeText={text => setDataLogin({...dataLogin, username: text})}
-          onPressIn={() => {
-            setZIndexInput({...zIndexInput, username: -1});
-            setInputValidation({
-              ...inputValidation,
-              username: undefined,
-            });
-            setErrorMessageVisible(false);
-          }}
-          onBlur={() => {
-            setZIndexInput({
-              ...zIndexInput,
-              username: dataLogin.username ? -1 : 1,
-            });
-
-            usernameValidation();
-          }}
-          disableFullscreenUI={true}
         />
 
         <Text style={LoginStyle.descInput}>Password</Text>
         <TextInput
           style={LoginStyle.inputLogin}
           secureTextEntry={!showPassword ? true : false}
-          // value={dataLogin.password}
-          // onChangeText={text => setDataLogin({...dataLogin, password: text})}
           value={dataLogin.password}
           onChangeText={text => setDataLogin({...dataLogin, password: text})}
-          onPressIn={() => {
-            setZIndexInput({...zIndexInput, password: -1});
-            setInputValidation({
-              ...inputValidation,
-              password: undefined,
-            });
-            setErrorMessageVisible(false);
-          }}
-          onBlur={() => {
-            setZIndexInput({
-              ...zIndexInput,
-              password: dataLogin.password ? -1 : 1,
-            });
-
-            passwordValidation();
-          }}
-          disableFullscreenUI={true}
-        />
-        <Icon
-          name={!showPassword ? 'eye' : 'eye-off'}
-          onPress={() => setShowPassword(!showPassword)}
         />
 
         <Text
@@ -205,10 +111,7 @@ function Login({...props}) {
           Forgot Password
         </Text>
 
-        <TouchableOpacity
-          style={LoginStyle.buttonLogin}
-          onPress={loginHandler}
-          disabled={isDisabled}>
+        <TouchableOpacity style={LoginStyle.buttonLogin} onPress={loginHandler}>
           <Text style={LoginStyle.labelButtonLogin}>Login</Text>
         </TouchableOpacity>
 

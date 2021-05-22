@@ -41,7 +41,10 @@ export const DashStyle = StyleSheet.create({
     marginTop: '3%',
   },
   chooseSchedule: {
-    textAlign: 'center',
+    alignSelf: 'center',
+    fontSize : 12,
+    fontWeight: 'bold',
+    color: 'grey',
   },
   footer: {
     backgroundColor: 'white',

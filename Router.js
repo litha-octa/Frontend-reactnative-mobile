@@ -26,6 +26,7 @@ import ActivityFas from './src/screens/ActivityFas';
 
 import Chat from './src/screens/Chat';
 
+import SplashScreen from './src/screens/SplashScreen';
 const Stack = createStackNavigator();
 
 // const Router = () => {
@@ -34,11 +35,13 @@ class Router extends React.Component {
     return (
       <NavigationContainer>
         <Stack.Navigator
+          initialRouteName="SplashScreen"
           screenOptions={{
             headerShown: false,
           }}>
           {/* Login */}
           <Stack.Screen name="Login" component={Login} />
+          <Stack.Screen name="SplashScreen" component={SplashScreen} />
           {/* Register */}
           <Stack.Screen name="Register" component={Register} />
           {/* Forgot Password */}
@@ -65,10 +68,7 @@ class Router extends React.Component {
             name="ActFasClassDetail"
             component={ActFasClassDetail}
           />
-          <Stack.Screen
-            name="ActFasMember"
-            component={ActFasMember}
-          />
+          <Stack.Screen name="ActFasMember" component={ActFasMember} />
 
           <Stack.Screen name="ActivityFas" component={ActivityFas} />
           {/* Chat */}
@@ -77,6 +77,7 @@ class Router extends React.Component {
 
         {/* <Navigator name="Login" component={Login} />
       <Navigator name="Home" component={Home} />
+      <Navigator name="SplashScreen" component={SplashScreen} />
       <Navigator name="Profile" component={Profile} />
       <Navigator name="Register" component={Register} />
       <Navigator name="InsertEmail" component={InsertEmail} />

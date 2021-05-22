@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, Text, TextInput, Image, ScrollView} from 'react-native';
+import {View, Text, TextInput, Image, ScrollView,} from 'react-native';
 import {ActFas} from '../components/Act/ActFas';
 import {
   List,
@@ -83,6 +83,7 @@ function ActivityFas({navigation}) {
             </ListItem>
           </List>
           <Text style={ActFas.viewAll}>View All</Text>
+    
         </View>
 
         <View>

@@ -1,4 +1,4 @@
-package com.eduex;
+package com.eduapp;
 
 import android.app.Application;
 import android.content.Context;
