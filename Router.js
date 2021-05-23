@@ -21,6 +21,7 @@ import ActStuMyClass from './src/screens/ActStu';
 import ActStuClassDetail from './src/screens/ActStuClassDetail';
 import ActFasClassDetail from './src/screens/ActFasClassDetail';
 import ActFasMember from './src/screens/ActFasMember';
+import Activity from './src/screens/Activity';
 
 import ActivityFas from './src/screens/ActivityFas';
 
@@ -71,6 +72,7 @@ class Router extends React.Component {
           <Stack.Screen name="ActFasMember" component={ActFasMember} />
 
           <Stack.Screen name="ActivityFas" component={ActivityFas} />
+          {/* <Stack.Screen name="Activity" component={Activity} /> */}
           {/* Chat */}
           <Stack.Screen name="Chat" component={Chat} />
         </Stack.Navigator>

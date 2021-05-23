@@ -22,7 +22,7 @@ function Register({...props}) {
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [modalVisible, setModalVisible] = useState(false);
   const [dataRegister, setDataRegister] = useState({
-    username: '',
+    name: '',
     email: '',
     password: '',
     repassword: '',
@@ -33,20 +33,20 @@ function Register({...props}) {
     color: '#EB4335',
   };
   const [errorMessage, setErrorMessage] = useState({
-    username: '',
+    name: '',
     email: '',
     password: '',
     repassword: '',
   });
   const [inputValidation, setInputValidation] = useState({
-    username: undefined,
+    name: undefined,
     email: undefined,
     password: undefined,
     repassword: undefined,
   });
 
   const [zIndexInput, setZIndexInput] = useState({
-    username: 1,
+    name: 1,
     email: 1,
     password: 1,
     repassword: 1,
@@ -70,19 +70,19 @@ function Register({...props}) {
   });
 
   // =============================VALIDATION SECTION============================= //
-  // username : min. length = 5
-  const usernameValidation = () => {
-    if (dataRegister.username === '') {
-      setInputValidation({...inputValidation, username: false});
-      setErrorMessage({...errorMessage, username: "This field can't be empty"});
-    } else if (dataRegister.username.length < 5) {
-      setInputValidation({...inputValidation, username: false});
+  // name : min. length = 5
+  const nameValidation = () => {
+    if (dataRegister.name === '') {
+      setInputValidation({...inputValidation, name: false});
+      setErrorMessage({...errorMessage, name: "This field can't be empty"});
+    } else if (dataRegister.name.length < 5) {
+      setInputValidation({...inputValidation, name: false});
       setErrorMessage({
         ...errorMessage,
-        username: 'Username must be at least 5 characters',
+        name: 'name must be at least 5 characters',
       });
     } else {
-      setInputValidation({...inputValidation, username: true});
+      setInputValidation({...inputValidation, name: true});
     }
   };
 
@@ -150,15 +150,16 @@ function Register({...props}) {
   const registerHandler = e => {
     e.preventDefault();
     const data = {
-      username: dataRegister.username,
+      name: dataRegister.name,
       email: dataRegister.email,
       password: dataRegister.password,
     };
+    console.log(data)
     props.register(`${DOMAIN_API}:${PORT_API}/api/v1/auth/regis/`, data);
   };
   useEffect(() => {
     if (
-      inputValidation.username &&
+      inputValidation.name &&
       inputValidation.email &&
       inputValidation.password &&
       inputValidation.repassword
@@ -179,33 +180,11 @@ function Register({...props}) {
       } else if (props.auth.isRegisterFulfilled) {
         console.log('sukses');
         setModalVisible(true);
-      } else if (props.auth.isRegisterRejected) {
-        if (
-          props.auth.errorRegister.response &&
-          props.auth.errorRegister.response.data.error.conflict === 'username'
-        ) {
-          console.log('username is already taken');
-          setInputValidation({...inputValidation, username: false});
-          setErrorMessage({
-            ...errorMessage,
-            username: 'This username is already taken',
-          });
-        } else if (
-          props.auth.errorRegister.response &&
-          props.auth.errorRegister.response.data.error.conflict === 'email'
-        ) {
-          console.log('email is already taken');
-          setInputValidation({...inputValidation, email: false});
-          setErrorMessage({
-            ...errorMessage,
-            email: 'This email is already taken',
-          });
-        } else {
-          console.log('something wrong..');
-        }
-      }
-    }
-  }, [
+       } else if (props.auth.isRegisterRejected){
+          console.log(props.auth.errorRegister)
+       }
+      }},
+ [
     props.auth.isRegisterPending,
     props.auth.isRegisterFulfilled,
     props.auth.isRegisterRejected,
@@ -222,39 +201,39 @@ function Register({...props}) {
                   style={{
                     ...styles.formLabel,
                     color:
-                      inputValidation.username === false
+                      inputValidation.name === false
                         ? errorStyle.color
                         : '#ADA9BB',
                   }}>
-                  Username
+                  name
                 </Label>
                 <Input
                   style={{
                     ...styles.formInput,
-                    zIndex: zIndexInput.username,
+                    zIndex: zIndexInput.name,
                     borderColor:
-                      inputValidation.username === false
+                      inputValidation.name === false
                         ? errorStyle.borderColor
                         : '#ADA9BB',
                   }}
-                  value={dataRegister.username}
+                  value={dataRegister.name}
                   onChangeText={text => {
-                    setDataRegister({...dataRegister, username: text});
+                    setDataRegister({...dataRegister, name: text});
                   }}
                   onPressIn={() => {
-                    setZIndexInput({...zIndexInput, username: -1});
+                    setZIndexInput({...zIndexInput, name: -1});
                     setInputValidation({
                       ...inputValidation,
-                      username: undefined,
+                      name: undefined,
                     });
-                    setErrorMessage({...errorMessage, username: ''});
+                    setErrorMessage({...errorMessage, name: ''});
                   }}
                   onBlur={() => {
                     setZIndexInput({
                       ...zIndexInput,
-                      username: dataRegister.username ? -1 : 1,
+                      name: dataRegister.name ? -1 : 1,
                     });
-                    usernameValidation();
+                    nameValidation();
                   }}
                   disableFullscreenUI={true}
                 />
@@ -262,9 +241,9 @@ function Register({...props}) {
               <Text
                 style={{
                   ...styles.errorMessage,
-                  marginBottom: errorMessage.username ? 5 : -5,
+                  marginBottom: errorMessage.name ? 5 : -5,
                 }}>
-                {errorMessage.username}
+                {errorMessage.name}
               </Text>
 
               <Item floatingLabel style={styles.formItem}>
