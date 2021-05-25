@@ -57,38 +57,6 @@ function Chat({navigation}) {
           </CardItem>
         </Card>
       </ScrollView>
-      <Footer>
-        <FooterTab>
-          <Button
-            style={{backgroundColor: 'white'}}
-            onPress={() => {
-              navigation.navigate('DashStuAllSchedule');
-            }}>
-            <Image source={require('../assets/images/Home-Off.png')} />
-          </Button>
-          <Button
-            style={{backgroundColor: 'white'}}
-            onPress={() => {
-              navigation.navigate('ActStuNewClass');
-            }}>
-            <Image source={require('../assets/images/Act-Off.png')} />
-          </Button>
-          <Button
-            style={{backgroundColor: 'white'}}
-            onPress={() => {
-              navigation.navigate('Chat');
-            }}>
-            <Image source={require('../assets/images/Chat-On.png')} />
-          </Button>
-          <Button
-            style={{backgroundColor: 'white'}}
-            onPress={() => {
-              navigation.navigate('Profile');
-            }}>
-            <Image source={require('../assets/images/Prof-Off.png')} />
-          </Button>
-        </FooterTab>
-      </Footer>
     </View>
   );
 }

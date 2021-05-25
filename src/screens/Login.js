@@ -132,8 +132,7 @@ function Login({...props}) {
         console.log('Loading...');
         setIndicatorVisible(true);
       } else if (props.auth.isLoginFulfilled) {
-        console.log(dataLogin);
-        navigation.navigate('DashStuAllSchedule');
+        console.log('success');
         setIndicatorVisible(false);
       } else if (props.auth.isLoginRejected) {
         console.log(props.auth.errorLogin);

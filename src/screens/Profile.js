@@ -143,35 +143,6 @@ const Profile = ({navigation, route}) => {
           </View>
         </View>
       </ScrollView>
-
-      <Footer>
-        <FooterTab>
-          <Button
-            style={ProfStyle.footer}
-            onPress={() => {
-              navigation.navigate('DashStuAllSchedule');
-            }}>
-            <Image source={require('../assets/images/Home-Off.png')} />
-          </Button>
-          <Button
-            style={ProfStyle.footer}
-            onPress={() => {
-              navigation.navigate('ActStuNewClass');
-            }}>
-            <Image source={require('../assets/images/Act-Off.png')} />
-          </Button>
-          <Button
-            style={ProfStyle.footer}
-            onPress={() => {
-              navigation.navigate('Chat');
-            }}>
-            <Image source={require('../assets/images/Chat-Off.png')} />
-          </Button>
-          <Button style={ProfStyle.footer}>
-            <Image source={require('../assets/images/Prof-On.png')} />
-          </Button>
-        </FooterTab>
-      </Footer>
     </View>
   );
 };
