@@ -12,6 +12,7 @@ const Dashboard = ({props}) => {
   const data = {
     username: 'Emir',
   };
+  // console.log(props.auth.isLogin);
   // const role = props.role;
   // console.log(role);
   // const [dataUser, setDataUser] = useState('');
@@ -30,13 +31,14 @@ const Dashboard = ({props}) => {
   //   }
   // }, [props]);
 
-
   return (
     <View style={DashStyle.body}>
       <View style={DashStyle.header}>
         <Text style={DashStyle.welcome}>Welcome back,</Text>
 
-        <Text style={DashStyle.username}> helo
+        <Text style={DashStyle.username}>
+          {' '}
+          helo
           {/* {dataUser.full_name
             ? dataUser.full_name.split(' ')[0]
             : dataUser.name} */}
@@ -56,6 +58,7 @@ const Dashboard = ({props}) => {
         {/* {role === 'student' ? <Student /> : <DashFas />} */}
 
         {/* <DashFas/> */}
+        <Student />
       </ScrollView>
     </View>
   );

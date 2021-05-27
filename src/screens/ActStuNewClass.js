@@ -7,6 +7,9 @@ import {
   Image,
   ScrollView,
 } from 'react-native';
+import axios from 'axios';
+import {DOMAIN_API, PORT_API} from '@env';
+import {connect} from 'react-redux';
 import {ActStyle2} from '../components/Act/ActStyle2';
 import {
   List,
@@ -25,6 +28,12 @@ function ActStuNewClass({navigation}) {
     name: 'Front-end fundamentals',
     progress: '80%',
     score: '80',
+  };
+  const getNewClass = () => {
+    axios
+      .get(`${DOMAIN_API}:${PORT_API}/api/v1/newclass/`)
+      .then(res => setMyClass(res.data.result))
+      .catch(err => console.log(err))
   };
   return (
     <View style={ActStyle2.body}>
@@ -113,39 +122,6 @@ function ActStuNewClass({navigation}) {
           </Container>
         </View>
       </ScrollView>
-
-      <Footer>
-        <FooterTab>
-          <Button
-            style={ActStyle2.footer}
-            onPress={() => {
-              navigation.navigate('DashStuAllSchedule');
-            }}>
-            <Image source={require('../assets/images/Home-Off.png')} />
-          </Button>
-          <Button
-            style={ActStyle2.footer}
-            onPress={() => {
-              navigation.navigate('ActStuNewClass');
-            }}>
-            <Image source={require('../assets/images/Act-On.png')} />
-          </Button>
-          <Button
-            style={ActStyle2.footer}
-            onPress={() => {
-              navigation.navigate('Chat');
-            }}>
-            <Image source={require('../assets/images/Chat-Off.png')} />
-          </Button>
-          <Button
-            style={ActStyle2.footer}
-            onPress={() => {
-              navigation.navigate('Profile');
-            }}>
-            <Image source={require('../assets/images/Prof-Off.png')} />
-          </Button>
-        </FooterTab>
-      </Footer>
     </View>
   );
 }

@@ -7,6 +7,7 @@ export const ACDStyle = StyleSheet.create({
     borderBottomStartRadius: 20,
     borderBottomEndRadius: 20,
     padding: 20,
+    marginTop:30,
   },
   body: {
     backgroundColor: '#E6EDF6',

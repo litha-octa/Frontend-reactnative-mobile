@@ -99,6 +99,32 @@ const auth = (state = initialState, {type, payload}) => {
         isRegisterPending: false,
         errorRegister: payload,
       };
+    case 'GET_DATA_USER_PENDING':
+      return {
+        ...state,
+        isUserDataPending: true,
+        isUserDataFulfilled: false,
+        isUserDataRejected: false,
+      };
+    case 'GET_DATA_USER_FULFILLED':
+      return {
+        ...state,
+        isUserDataFulfilled: true,
+        isUserDataPending: false,
+        isUserObtained: true,
+        currentUser: payload.data.result[0],
+        resultUserData: payload.data.result[0],
+      };
+    case 'GET_DATA_USER_REJECTED':
+      return {
+        ...state,
+        isUserDataRejected: true,
+        isUserDataPending: false,
+        errorUserData: payload,
+        currentUser: {},
+        isLogin: false,
+        resultLogin: {},
+      };
     default:
       return state;
   }

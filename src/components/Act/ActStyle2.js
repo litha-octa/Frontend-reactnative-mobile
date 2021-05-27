@@ -6,6 +6,7 @@ export const ActStyle2 = StyleSheet.create({
     borderBottomStartRadius: 20,
     borderBottomEndRadius: 20,
     padding: 20,
+    marginTop:30,
   },
   body: {
     backgroundColor: '#E6EDF6',

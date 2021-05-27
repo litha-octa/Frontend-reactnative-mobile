@@ -133,6 +133,7 @@ function Login({...props}) {
         setIndicatorVisible(true);
       } else if (props.auth.isLoginFulfilled) {
         console.log('success');
+        props.navigation.navigate('Dashboard');
         setIndicatorVisible(false);
       } else if (props.auth.isLoginRejected) {
         console.log(props.auth.errorLogin);
@@ -195,7 +196,7 @@ function Login({...props}) {
 
             <Form>
               <Item floatingLabel style={styles.formItem}>
-                <Label style={styles.formLabel}>name or name</Label>
+                <Label style={styles.formLabel}>Email or Username</Label>
                 <Input
                   style={{...styles.formInput, zIndex: zIndexInput.name}}
                   value={dataLogin.name}
@@ -260,7 +261,7 @@ function Login({...props}) {
 
             <Text
               style={styles.txtForgot}
-              onPress={() => props.navigation.navigate('ForgotPassword')}>
+              onPress={() => props.navigation.navigate('InsertEmail')}>
               Forgot password?
             </Text>
             <KeyboardAvoidingView style={styles.btnGroup}>

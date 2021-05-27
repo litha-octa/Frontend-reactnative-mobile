@@ -3,6 +3,7 @@ import { StyleSheet } from 'react-native';
 export const ResStyle = StyleSheet.create({
     body:{
         backgroundColor:'#F9F9F9',
+        marginTop: 30,
     },
     title:{
         fontFamily: 'Kanit',

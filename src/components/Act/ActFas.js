@@ -6,6 +6,7 @@ export const ActFas = StyleSheet.create({
     borderBottomStartRadius: 20,
     borderBottomEndRadius: 20,
     padding: 20,
+    marginTop: 30,
   },
   body: {
     backgroundColor: '#E6EDF6',
@@ -44,9 +45,9 @@ export const ActFas = StyleSheet.create({
     width: '90%',
     alignSelf: 'center',
     marginTop: 15,
-    height:'100%',
+    height: '100%',
   },
-  dataNewClass:{
+  dataNewClass: {
     fontFamily: 'Montserrat-Medium',
     fontStyle: 'normal',
     fontWeight: 'bold',
