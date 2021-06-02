@@ -25,16 +25,18 @@ import Dashboard from './src/screens/Dashboard';
 import DashFas from './src/components/Dash/Fasilitator';
 //activity
 //student
+//import Notif from './src/screens/Notif';
 import ActStuNewClass from './src/screens/ActStuNewClass';
 import ActStuMyClass from './src/screens/ActStu';
 import ActStuClassDetail from './src/screens/ActStuClassDetail';
 //fasilitator
 import ActFasClassDetail from './src/screens/ActFasClassDetail';
 import ActFasMember from './src/screens/ActFasMember';
-import ActivityFas from './src/screens/ActivityFas';
+import ActivityFas from './src/screens/ActivityFasilitatorCreateClass';
 import Activity from './src/screens/Activity';
 //chat
 import Chat from './src/screens/Chat';
+import FormProfile from './src/screens/FormProfile';
 
 import SplashScreen from './src/screens/SplashScreen';
 
@@ -133,6 +135,7 @@ class Router extends React.Component {
           <Stack.Screen name="Activity" component={Activity} />
           {/* Chat */}
           <Stack.Screen name="Chat" component={Chat} />
+          <Stack.Screen name="FormProfile" component={FormProfile} />
         </Stack.Navigator>
       </NavigationContainer>
     );

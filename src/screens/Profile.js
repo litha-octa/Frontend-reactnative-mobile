@@ -6,13 +6,10 @@ import {
   Left,
   Right,
   Body,
-  Footer,
-  FooterTab,
-  Button,
 } from 'native-base';
 import {ProfStyle} from '../components/Profile/ProfStyle';
 
-const Profile = ({navigation, route}) => {
+const Profile = ({navigation}) => {
   return (
     <View style={ProfStyle.body}>
       <View style={ProfStyle.Header}>
@@ -24,7 +21,11 @@ const Profile = ({navigation, route}) => {
           />
         </View>
         <View style={ProfStyle.headername}>
-          <Text style={ProfStyle.username}>Emir Kharisma</Text>
+          <Text
+            style={ProfStyle.username}
+            onPress={() => navigation.navigate('FormProfile')}>
+            Emir Kharisma
+          </Text>
           <Text style={ProfStyle.status}>online</Text>
         </View>
       </View>

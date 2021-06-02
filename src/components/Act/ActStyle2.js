@@ -6,11 +6,11 @@ export const ActStyle2 = StyleSheet.create({
     borderBottomStartRadius: 20,
     borderBottomEndRadius: 20,
     padding: 20,
-    marginTop:30,
+    marginTop: 30,
   },
   body: {
     backgroundColor: '#E6EDF6',
-    height:'100%',
+    height: '100%',
   },
   backIcon: {
     marginRight: 10,
@@ -80,8 +80,10 @@ export const ActStyle2 = StyleSheet.create({
     alignSelf: 'center',
   },
   registerBtn: {
-    width: 40,
+    width: 70,
     marginTop: '2%',
+    marginLeft: 15,
+    borderRadius: 20,
   },
   footer: {
     backgroundColor: 'white',

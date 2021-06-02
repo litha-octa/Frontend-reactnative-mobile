@@ -275,12 +275,11 @@ function Login({...props}) {
                 disabled={isDisabled}>
                 <Text style={styles.buttonLabel}> Login </Text>
               </Button>
-              <Button style={{...styles.buttonGoogle, width: componentWidth}}>
+              <Button
+                style={{...styles.buttonGoogle, width: componentWidth}}
+                onPress={() => props.navigation.navigate('DashFas')}>
                 <Image source={require('../assets/images/logogoogle.png')} />
-                <Text style={styles.buttonLabelGoogle}>
-                  {' '}
-                  Login with Google{' '}
-                </Text>
+                <Text style={styles.buttonLabelGoogle}>Login with Google</Text>
               </Button>
             </KeyboardAvoidingView>
           </KeyboardAvoidingView>

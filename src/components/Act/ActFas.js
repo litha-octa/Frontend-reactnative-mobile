@@ -54,6 +54,15 @@ export const ActFas = StyleSheet.create({
     fontSize: 14,
     color: '#000000',
   },
+  categoryItem: {
+    fontFamily: 'Montserrat-Medium',
+    fontStyle: 'normal',
+    fontWeight: 'bold',
+    fontSize: 20,
+    color: 'white',
+    borderRadius:10,
+    backgroundColor: '#5784BA',
+  },
   footer: {
     backgroundColor: 'white',
   },

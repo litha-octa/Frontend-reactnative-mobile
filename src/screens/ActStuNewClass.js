@@ -40,11 +40,12 @@ function ActStuNewClass({navigation}) {
       <View style={ActStyle2.header}>
         <Text style={ActStyle2.title}> Activity</Text>
       </View>
-      <View>
-        <Text style={ActStyle2.subtitle}>My Class</Text>
-        <Text style={ActStyle2.subtitle}>Class Name Progress Score</Text>
-      </View>
       <ScrollView>
+        <View>
+          <Text style={ActStyle2.subtitle}>My Class</Text>
+          <Text style={ActStyle2.subtitle}>Class Name Progress Score</Text>
+        </View>
+
         <View>
           <List style={ActStyle2.listItem}>
             <ListItem>
@@ -85,35 +86,36 @@ function ActStuNewClass({navigation}) {
                 <Text>ClassName Level Pricing</Text>
               </ListItem>
               <ListItem>
-                <Text>{classData.name} Beginner $10</Text>
-
+                <Text>{classData.name}</Text>
+                <Text style={{marginLeft: 20}}> Beginner $10</Text>
                 <Button success style={ActStyle2.registerBtn}>
                   <Text style={ActStyle2.buttonLabel}> Success </Text>
                 </Button>
               </ListItem>
               <ListItem>
-                <Text>{classData.name} Beginner $10</Text>
-
+                <Text>{classData.name}</Text>
+                <Text style={{marginLeft: 20}}> Beginner $10</Text>
                 <Button success style={ActStyle2.registerBtn}>
                   <Text style={ActStyle2.buttonLabel}> Success </Text>
                 </Button>
               </ListItem>
               <ListItem>
-                <Text>{classData.name} Beginner $10</Text>
-
+                <Text>{classData.name}</Text>
+                <Text style={{marginLeft: 20}}> Beginner $10</Text>
                 <Button success style={ActStyle2.registerBtn}>
                   <Text style={ActStyle2.buttonLabel}> Success </Text>
                 </Button>
               </ListItem>
               <ListItem>
-                <Text>{classData.name} Beginner $10</Text>
-
+                <Text>{classData.name}</Text>
+                <Text style={{marginLeft: 20}}> Beginner $10</Text>
                 <Button success style={ActStyle2.registerBtn}>
                   <Text style={ActStyle2.buttonLabel}> Success </Text>
                 </Button>
               </ListItem>
               <ListItem>
-                <Text>{classData.name} Beginner $10</Text>
+                <Text>{classData.name}</Text>
+                <Text style={{marginLeft: 20}}> Beginner $10</Text>
                 <Button success style={ActStyle2.registerBtn}>
                   <Text style={ActStyle2.buttonLabel}> Success </Text>
                 </Button>
