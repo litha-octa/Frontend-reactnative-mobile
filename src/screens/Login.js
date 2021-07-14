@@ -130,12 +130,15 @@ function Login({...props}) {
     } else {
       if (props.auth.isLoginPending) {
         console.log('Loading...');
+        console.log(DOMAIN_API, PORT_API);
         setIndicatorVisible(true);
       } else if (props.auth.isLoginFulfilled) {
         console.log('success');
+        console.log(props.auth.resultLogin);
         props.navigation.navigate('Dashboard');
         setIndicatorVisible(false);
       } else if (props.auth.isLoginRejected) {
+        console.log('errroooorrrr');
         console.log(props.auth.errorLogin);
       }
     }
@@ -277,7 +280,7 @@ function Login({...props}) {
               </Button>
               <Button
                 style={{...styles.buttonGoogle, width: componentWidth}}
-                onPress={() => props.navigation.navigate('DashFas')}>
+                onPress={() => props.navigation.navigate('Dashboard')}>
                 <Image source={require('../assets/images/logogoogle.png')} />
                 <Text style={styles.buttonLabelGoogle}>Login with Google</Text>
               </Button>

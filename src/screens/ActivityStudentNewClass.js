@@ -1,17 +1,12 @@
-import React from 'react';
-import {
-  View,
-  Text,
-  TextInput,
-  TouchableOpacity,
-  Image,
-  ScrollView,
-} from 'react-native';
+import React, {useState} from 'react';
+import {View, Text, Picker, TextInput, Image, ScrollView} from 'react-native';
 import axios from 'axios';
 import {DOMAIN_API, PORT_API} from '@env';
 import {connect} from 'react-redux';
 import {ActStyle2} from '../components/Act/ActStyle2';
 import {
+  Item,
+  Select,
   List,
   ListItem,
   Left,
@@ -23,7 +18,8 @@ import {
   Button,
 } from 'native-base';
 
-function ActStuNewClass({navigation}) {
+function ActStuNewClass(props) {
+  const [category, setCategory] = useState('');
   const classData = {
     name: 'Front-end fundamentals',
     progress: '80%',
@@ -32,8 +28,8 @@ function ActStuNewClass({navigation}) {
   const getNewClass = () => {
     axios
       .get(`${DOMAIN_API}:${PORT_API}/api/v1/newclass/`)
-      .then(res => setMyClass(res.data.result))
-      .catch(err => console.log(err))
+      .then(res => console.log(res.data.result))
+      .catch(err => console.log(err));
   };
   return (
     <View style={ActStyle2.body}>
@@ -66,7 +62,7 @@ function ActStuNewClass({navigation}) {
           <Text
             style={ActStyle2.viewAll}
             onPress={() => {
-              navigation.navigate('ActStuMyClass');
+              props.navigation.navigate('ActStuMyClass');
             }}>
             View All
           </Text>
@@ -79,7 +75,36 @@ function ActStuNewClass({navigation}) {
               <Text style={ActStyle2.buttonLabel}> Search </Text>
             </Button>
             <View style={ActStyle2.filter}>
-              <Text style={ActStyle2.viewAll}>Categories Level Pricing</Text>
+              <Text style={ActStyle2.viewAll}>
+                {/* <Item
+                  Select
+                  style={{
+                    width: 10,
+                    backgroundColor: 'blue',
+                    overflow: 'hidden',
+                  }}/> */}
+                {/* <Select
+                  mode="dialog"
+                  placeholder="Select your SIM"
+                  selectedValue={category}
+                  onValueChange={e => setCategory(e)}>
+                  <Select.Item label="Category" value="0" />
+                  <Select.Item label="Finance" value="1" />
+                  <Select.Item label="History" value="2" />
+                  <Select.Item label="Math" value="3" />
+                  <Select.Item label="Psychology" value="4" />
+                  <Select.Item label="Science" value="5" />
+                  <Select.Item label="Software" value="6" />
+                </Select> */}
+                {/* <Picker
+                  selectedValue={category}
+                  onValueChange={e => setCategory(e)}>
+                  <Picker.Item label="Java" value="java" />
+                  <Picker.Item label="JavaScript" value="js" />
+                </Picker>
+                 */}
+                Categories Level Pricing
+              </Text>
             </View>
             <List style={ActStyle2.listItem}>
               <ListItem>
@@ -87,7 +112,7 @@ function ActStuNewClass({navigation}) {
               </ListItem>
               <ListItem>
                 <Text>{classData.name}</Text>
-                <Text style={{marginLeft: 20}}> Beginner $10</Text>
+                <Text style={{marginLeft: 10}}> Intermediate $10</Text>
                 <Button success style={ActStyle2.registerBtn}>
                   <Text style={ActStyle2.buttonLabel}> Success </Text>
                 </Button>

@@ -1,3 +1,67 @@
+// const initialState = {
+//   currentUser: {},
+//   isPending: false,
+//   isFulfilled: false,
+//   isRejected: false,
+//   isLogin: false,
+// };
+// export const loginReducer = (state = initialState, {type, payload}) => {
+//   switch (type) {
+//     case 'POST_login_PENDING':
+//       return {
+//         ...state,
+//         isPending: true,
+//         isFulfilled: false,
+//         isRejected: false,
+//       };
+//     case 'POST_login_FULFILLED':
+//       return {
+//         ...state,
+//         isFulfilled: true,
+//         isPending: false,
+//         result: payload.data.result,
+//         isLogin: true,
+//       };
+//     case 'POST_login_REJECTED':
+//       return {
+//         ...state,
+//         isRejected: true,
+//         isPending: false,
+//         error: payload,
+//       };
+//     default:
+//       return state;
+//   }
+// };
+
+// export const getUserReducer = (state = initialState, {type, payload}) => {
+//   switch (type) {
+//     case 'GET_getUser_PENDING':
+//       return {
+//         ...state,
+//         isPending: true,
+//         isFulfilled: false,
+//         isRejected: false,
+//       };
+//     case 'GET_getUser_FULFILLED':
+//       return {
+//         ...state,
+//         isFulfilled: true,
+//         isPending: false,
+//         currentUser: payload.data.result[0],
+//       };
+//     case 'GET_getUser_REJECTED':
+//       return {
+//         ...state,
+//         isRejected: true,
+//         isPending: false,
+//         result: payload,
+//       };
+//     default:
+//       return state;
+//   }
+// };
+
 const initialState = {
   resultLogin: {},
   errorLogin: {},
@@ -16,18 +80,7 @@ const initialState = {
   isRegisterFulfilled: false,
   isRegisterRejected: false,
 
-  resultUserData: {},
-  errorUserData: {},
-  currentUser: {},
-  isUserDataPending: false,
-  isUserDataFulfilled: false,
-  isUserDataRejected: false,
-
-  // isPending: false,
-  // isFulfilled: false,
-  // isRejected: false,
   isLogin: false,
-  // isUserObtained: false,
 };
 const auth = (state = initialState, {type, payload}) => {
   switch (type) {
@@ -43,11 +96,7 @@ const auth = (state = initialState, {type, payload}) => {
         ...state,
         isLogoutFulfilled: true,
         isLogoutPending: false,
-        isLogin: false,
-        resultLogin: {},
-        resultRegister: {},
-        resultUserData: {},
-        // currentUser: {},
+        ...initialState,
       };
     case 'LOGOUT_USER_REJECTED':
       return {
@@ -98,32 +147,6 @@ const auth = (state = initialState, {type, payload}) => {
         isRegisterRejected: true,
         isRegisterPending: false,
         errorRegister: payload,
-      };
-    case 'GET_DATA_USER_PENDING':
-      return {
-        ...state,
-        isUserDataPending: true,
-        isUserDataFulfilled: false,
-        isUserDataRejected: false,
-      };
-    case 'GET_DATA_USER_FULFILLED':
-      return {
-        ...state,
-        isUserDataFulfilled: true,
-        isUserDataPending: false,
-        isUserObtained: true,
-        currentUser: payload.data.result[0],
-        resultUserData: payload.data.result[0],
-      };
-    case 'GET_DATA_USER_REJECTED':
-      return {
-        ...state,
-        isUserDataRejected: true,
-        isUserDataPending: false,
-        errorUserData: payload,
-        currentUser: {},
-        isLogin: false,
-        resultLogin: {},
       };
     default:
       return state;

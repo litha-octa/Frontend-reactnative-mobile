@@ -1,8 +1,9 @@
 /* eslint-disable react-native/no-inline-styles */
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, {useRef} from 'react';
-import {View, Text, TextInput, Image, ScrollView} from 'react-native';
+import React, {useRef,useState} from 'react';
+import {View, Text, TextInput, Image, ScrollView,Alert} from 'react-native';
 import {ActFas} from '../components/Act/ActFas';
+import NotifService from './../../NotifService';
 import {
   List,
   ListItem,
@@ -18,6 +19,22 @@ import {
 } from 'native-base';
 import DateTimePicker from '@react-native-community/datetimepicker';
 function ActivityFas({navigation}) {
+  const [registerToken, setRegisterToken] = useState('');
+  const [fcmRegistered, setFcmRegistered] = useState(false);
+  const onRegister = token => {
+    setRegisterToken(token.token);
+    setFcmRegistered(true);
+  };
+
+  const onNotif = notif => {
+    Alert.alert(notif.title, notif.message);
+  };
+
+  const notif = new NotifService(onRegister, onNotif);
+  const handlePerm = perms => {
+    Alert.alert('Permissions', JSON.stringify(perms));
+  };
+
   const classData = {
     name1: 'Front-end fundamentals',
     student1: '24',
@@ -245,7 +262,7 @@ function ActivityFas({navigation}) {
                 marginBottom: 15,
               }}>
               <Text style={ActFas.dataNewClass}>{newClassData.schedule} :</Text>
-              <TextInput style={{width: 100, fontSize: 20, marginTop: -16}}/>
+              <TextInput style={{width: 100, fontSize: 20, marginTop: -16}} />
             </View>
             <View
               style={{
@@ -275,6 +292,9 @@ function ActivityFas({navigation}) {
                   borderRadius: 20,
                   marginTop: '7%',
                   marginBottom: '20%',
+                }}
+                onPress={() => {
+                  notif.localNotif();
                 }}>
                 <Text
                   style={{

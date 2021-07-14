@@ -25,19 +25,20 @@ import Dashboard from './src/screens/Dashboard';
 import DashFas from './src/components/Dash/Fasilitator';
 //activity
 //student
-//import Notif from './src/screens/Notif';
-import ActStuNewClass from './src/screens/ActStuNewClass';
-import ActStuMyClass from './src/screens/ActStu';
-import ActStuClassDetail from './src/screens/ActStuClassDetail';
+import ChatRoom from './src/screens/ChatRoom';
+import Notif from './src/screens/Notif';
+import News from './src/screens/News';
+import ActStuNewClass from './src/screens/ActivityStudentNewClass';
+import ActStuMyClass from './src/screens/ActivityStudent';
+import ActStuClassDetail from './src/screens/ActivityStudentClassDetail';
 //fasilitator
-import ActFasClassDetail from './src/screens/ActFasClassDetail';
-import ActFasMember from './src/screens/ActFasMember';
+import ActFasClassDetail from './src/screens/ActivityFasilitatorClassDetail';
+import ActFasMember from './src/screens/ActivityFasilitatorMember';
 import ActivityFas from './src/screens/ActivityFasilitatorCreateClass';
 import Activity from './src/screens/Activity';
 //chat
 import Chat from './src/screens/Chat';
 import FormProfile from './src/screens/FormProfile';
-
 import SplashScreen from './src/screens/SplashScreen';
 
 const Stack = createStackNavigator();
@@ -93,53 +94,54 @@ function HomeTabs() {
   );
 }
 
-class Router extends React.Component {
-  render() {
-    return (
-      <NavigationContainer>
-        <Stack.Navigator
-          initialRouteName="SplashScreen"
-          screenOptions={{
-            headerShown: false,
-          }}>
-          {/* Login */}
-          <Stack.Screen name="SplashScreen" component={SplashScreen} />
-          <Stack.Screen name="Login" component={Login} />
-          {/* Register */}
-          <Stack.Screen name="Register" component={Register} />
-          {/* Forgot Password */}
-          <Stack.Screen name="InsertEmail" component={InsertEmail} />
-          <Stack.Screen name="AccountVer" component={AccountVer} />
-          <Stack.Screen name="CreateNewPass" component={CreateNewPass} />
-          <Stack.Screen name="PassChanged" component={PassChanged} />
-          {/* Dashboard */}
-          <Stack.Screen name="DashFas" component={DashFas} />
+function Router(props) {
+  return (
+    <NavigationContainer>
+      <Stack.Navigator
+        initialRouteName="SplashScreen"
+        screenOptions={{
+          headerShown: false,
+        }}>
+        {/* {!props.token ? (
+          <> */}
+        <Stack.Screen name="SplashScreen" component={SplashScreen} />
+        <Stack.Screen name="Login" component={Login} />
+        <Stack.Screen name="Register" component={Register} />
 
-          <Stack.Screen name="Dashboard" component={HomeTabs} />
-          {/* Profile */}
-          <Stack.Screen name="Profile" component={Profile} />
-          {/* Activity */}
-          <Stack.Screen name="ActStuNewClass" component={ActStuNewClass} />
-          <Stack.Screen name="ActStuMyClass" component={ActStuMyClass} />
-          <Stack.Screen
-            name="ActStuClassDetail"
-            component={ActStuClassDetail}
-          />
-          <Stack.Screen
-            name="ActFasClassDetail"
-            component={ActFasClassDetail}
-          />
-          <Stack.Screen name="ActFasMember" component={ActFasMember} />
+        <Stack.Screen name="InsertEmail" component={InsertEmail} />
+        <Stack.Screen name="AccountVer" component={AccountVer} />
+        <Stack.Screen name="CreateNewPass" component={CreateNewPass} />
+        <Stack.Screen name="PassChanged" component={PassChanged} />
+        {/* </>
+        ) : (
+          <> */}
 
-          <Stack.Screen name="ActivityFas" component={ActivityFas} />
-          <Stack.Screen name="Activity" component={Activity} />
-          {/* Chat */}
-          <Stack.Screen name="Chat" component={Chat} />
-          <Stack.Screen name="FormProfile" component={FormProfile} />
-        </Stack.Navigator>
-      </NavigationContainer>
-    );
-  }
+        {/* Dashboard */}
+        <Stack.Screen name="Dashboard" component={HomeTabs} />
+        <Stack.Screen name="DashFas" component={DashFas} />
+
+        {/* Profile */}
+        <Stack.Screen name="Profile" component={Profile} />
+        <Stack.Screen name="ChatRoom" component={ChatRoom} />
+        {/* Activity */}
+        <Stack.Screen name="ActStuNewClass" component={ActStuNewClass} />
+        <Stack.Screen name="ActStuMyClass" component={ActStuMyClass} />
+        <Stack.Screen name="ActStuClassDetail" component={ActStuClassDetail} />
+        <Stack.Screen name="ActFasClassDetail" component={ActFasClassDetail} />
+        <Stack.Screen name="ActFasMember" component={ActFasMember} />
+
+        <Stack.Screen name="ActivityFas" component={ActivityFas} />
+        <Stack.Screen name="Activity" component={Activity} />
+        {/* Chat */}
+        <Stack.Screen name="Chat" component={Chat} />
+        <Stack.Screen name="FormProfile" component={FormProfile} />
+        <Stack.Screen name="Notif" component={Notif} />
+        <Stack.Screen name="News" component={News} />
+        {/* </>
+        )} */}
+      </Stack.Navigator>
+    </NavigationContainer>
+  );
 }
 
 const styles = StyleSheet.create({
@@ -155,9 +157,12 @@ const styles = StyleSheet.create({
   },
 });
 
-const mapStateToProps = state => {
-  return {isLogin: state.auth.isLogin, token: state.auth.resultLogin.token};
-};
-export default connect(mapStateToProps)(Router);
+// const mapStateToProps = state => {
+//   return {
+//     isLogin: state.loginReducer.isLogin,
+//     //token: state.loginReducer.result.token,
+//   };
+// };
+// export default connect(mapStateToProps)(Router);
 
-// export default Router;
+export default Router;

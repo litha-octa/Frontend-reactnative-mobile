@@ -1,15 +1,12 @@
-import React from 'react';
-import {View, Text, Image, ScrollView} from 'react-native';
-import {
-  Card,
-  CardItem,
-  Left,
-  Right,
-  Body,
-} from 'native-base';
+import React, {useState} from 'react';
+import {View, Text, Image, ScrollView, TouchableOpacity, StyleSheet} from 'react-native';
+import {Card, CardItem, Left, Right, Body} from 'native-base';
 import {ProfStyle} from '../components/Profile/ProfStyle';
+import NotifService from './../../NotifService';
 
 const Profile = ({navigation}) => {
+ 
+  
   return (
     <View style={ProfStyle.body}>
       <View style={ProfStyle.Header}>
@@ -19,13 +16,16 @@ const Profile = ({navigation}) => {
             source={require('../assets/images/profile.png')}
             style={ProfStyle.img}
           />
+          <TouchableOpacity
+            onPress={() => navigation.navigate('FormProfile')}>
+            <Image
+              source={require('../assets/images/editicon.png')}
+              style={{width: 20, height: 20, marginLeft: 80, marginTop: -10}}
+            />
+          </TouchableOpacity>
         </View>
         <View style={ProfStyle.headername}>
-          <Text
-            style={ProfStyle.username}
-            onPress={() => navigation.navigate('FormProfile')}>
-            Emir Kharisma
-          </Text>
+          <Text style={ProfStyle.username}>Emir Kharisma</Text>
           <Text style={ProfStyle.status}>online</Text>
         </View>
       </View>
@@ -39,7 +39,13 @@ const Profile = ({navigation}) => {
                   <Image source={require('../assets/images/PhoneIcon.png')} />
                 </Left>
                 <Body>
-                  <Text style={ProfStyle.menuBtn}>Phone Numbers</Text>
+                  <Text
+                    style={ProfStyle.menuBtn}
+                    onPress={() =>
+                     navigation.navigate('Notif')
+                    }>
+                    Phone Numbers
+                  </Text>
                 </Body>
                 <Right>
                   <Image source={require('../assets/images/arrow.png')} />
@@ -127,7 +133,7 @@ const Profile = ({navigation}) => {
               <CardItem
                 button
                 onPress={() => {
-                  alert('Are You Sure?');
+                  alert('Anda Telah Keluar');
                   navigation.navigate('Login');
                 }}>
                 <Left>
@@ -147,5 +153,43 @@ const Profile = ({navigation}) => {
     </View>
   );
 };
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#F5FCFF',
+  },
+  welcome: {
+    fontSize: 20,
+    textAlign: 'center',
+    margin: 10,
+  },
+  button: {
+    borderWidth: 1,
+    borderColor: '#000000',
+    margin: 5,
+    padding: 5,
+    width: '70%',
+    backgroundColor: '#DDDDDD',
+    borderRadius: 5,
+  },
+  textField: {
+    borderWidth: 1,
+    borderColor: '#AAAAAA',
+    margin: 5,
+    padding: 5,
+    width: '70%',
+  },
+  spacer: {
+    height: 10,
+  },
+  title: {
+    fontWeight: 'bold',
+    fontSize: 20,
+    textAlign: 'center',
+  },
+});
 
 export default Profile;

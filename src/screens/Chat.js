@@ -14,7 +14,7 @@ import {
 } from 'native-base';
 import {chatStyle} from '../components/Chat/ChatStyle';
 
-function Chat({navigation}) {
+function Chat({...props}) {
   return (
     <View style={chatStyle.body}>
       <View style={chatStyle.header}>
@@ -25,7 +25,11 @@ function Chat({navigation}) {
         <Card>
           <CardItem>
             <Image source={require('../assets/images/Member.png')} />
-            <Text style={chatStyle.nameMember}>Deddy Corbuzer</Text>
+            <Text
+              style={chatStyle.nameMember}
+              onPress={() => props.navigation.navigate('ChatRoom')}>
+              Deddy Corbuzer
+            </Text>
           </CardItem>
           <CardItem>
             <Image source={require('../assets/images/Member.png')} />

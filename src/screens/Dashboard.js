@@ -1,78 +1,92 @@
 import React, {useEffect, useState, useRef} from 'react';
-import {View, Text, TextInput, Image, ScrollView} from 'react-native';
+import {
+  View,
+  Text,
+  TextInput,
+  Image,
+  ScrollView,
+  TouchableOpacity,
+} from 'react-native';
 import {Card, CardItem, Body, Footer, FooterTab, Button} from 'native-base';
 import {connect} from 'react-redux';
 import {DOMAIN_API, PORT_API} from '@env';
-import {getDataUser} from '../redux/actions/auth';
+import getUser from '../redux/actions/getUser';
 import {DashStyle} from '../components/Dash/DashStyle';
 import Student from '../components/Dash/Student';
 import DashFas from '../components/Dash/Fasilitator';
+import axios from 'axios';
 
-const Dashboard = ({props}) => {
+function Dashboard(props) {
+  const role = props.role;
+  const email = props.email;
+  console.log(role,email);
+
+  useEffect(() => {
+    props.getUser(`${DOMAIN_API}:${PORT_API}/api/v1/usr/`, email);
+  });
+  // if(getuser.ispending){
+  //   console.log("loading")
+  // }
+  // else if(getUser.isFulfilled){
+  //   console.log('fulfilled')
+  // }
+  // else{
+  //   console.log('errorrrrr')
+  // };
+
   const data = {
-    username: 'Emir',
+    //username: props.getUser.currentUser.name,
   };
-  // console.log(props.auth.isLogin);
-  // const role = props.role;
-  // console.log(role);
-  // const [dataUser, setDataUser] = useState('');
-  // const ref = useRef();
-
-  // useEffect(() => {
-  //   if (!ref.current) {
-  //     const token = props.token;
-  //     props.getDataUser(`${DOMAIN_API}:${PORT_API}/api/v1/usr/`, token);
-  //     ref.current = true;
-  //   } else {
-  //     if (props.auth.isUserObtained) {
-  //       setDataUser(props.auth.currentUser);
-  //       console.log(props.auth.currentUser);
-  //     }
-  //   }
-  // }, [props]);
-
   return (
     <View style={DashStyle.body}>
       <View style={DashStyle.header}>
         <Text style={DashStyle.welcome}>Welcome back,</Text>
-
-        <Text style={DashStyle.username}>
-          {' '}
-          helo
-          {/* {dataUser.full_name
-            ? dataUser.full_name.split(' ')[0]
-            : dataUser.name} */}
-        </Text>
+        <TouchableOpacity
+          style={{
+            marginLeft: '80%',
+            marginTop: -25,
+            width: 35,
+            height: 35,
+          }}>
+          <Image
+            source={require('../assets/images/NotifIcon4.png')}
+            style={{width: 30, height: 30}}
+          />
+        </TouchableOpacity>
+        <Text style={DashStyle.username}>Emir Khrisma</Text>
         <TextInput
           style={DashStyle.searchBar}
           placeholder="Looking for something?"
         />
       </View>
       <ScrollView>
-        <View>
+        <View onPress={() => props.navigation.navigate('News')}>
           <Image
             source={require('../assets/images/Carousel.png')}
             style={DashStyle.imgNews}
           />
         </View>
-        {/* {role === 'student' ? <Student /> : <DashFas />} */}
-
-        {/* <DashFas/> */}
+        {role === 'student' ? <Student /> : <DashFas />}
         <Student />
       </ScrollView>
     </View>
   );
-};
-// const mapStateToProps = state => ({
-//   auth: state.auth,
-//   token: state.auth.resultLogin.token,
-//   role: state.auth.currentUser.role,
-// });
-// const mapDispatchToProps = dispatch => ({
-//   getDataUser: (url, token) => {
-//     dispatch(getDataUser(url, token));
-//   },
-// });
-// export default connect(mapStateToProps, mapDispatchToProps)(Dashboard);
+}
 
-export default Dashboard;
+const mapStateToProps = state => ({
+  auth: state.auth,
+  role: state.auth.resultLogin.data.role,
+  email: state.auth.resultLogin.data.email,
+});
+
+const mapDispatchToProps = dispatch => ({
+  getUser: (url, email) => {
+    dispatch(getUser(url, email));
+  },
+});
+
+const ConnectedDashboard = connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(Dashboard);
+export default ConnectedDashboard;

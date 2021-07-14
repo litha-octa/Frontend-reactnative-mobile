@@ -22,13 +22,3 @@ export const register = (url, data) => {
         payload: axios.post(url, data),
     };
 };
-
-export const getDataUser = (url, token) => {
-    //   const token = localStorage.token;
-    return {
-        type: 'GET_DATA_USER',
-        payload: axios.get(url, {
-            headers: { 'x-access-token': `Bearer ${token}` },
-        }),
-    };
-};
