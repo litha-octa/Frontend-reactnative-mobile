@@ -1,12 +1,24 @@
 import React, {useState} from 'react';
-import {View, Text, Image, ScrollView, TouchableOpacity, StyleSheet} from 'react-native';
+import {
+  View,
+  Text,
+  Image,
+  ScrollView,
+  TouchableOpacity,
+  StyleSheet,
+} from 'react-native';
 import {Card, CardItem, Left, Right, Body} from 'native-base';
 import {ProfStyle} from '../components/Profile/ProfStyle';
 import NotifService from './../../NotifService';
+import {connect} from 'react-redux';
+import {DOMAIN_API, PORT_API} from '@env';
 
-const Profile = ({navigation}) => {
- 
-  
+function Profile(props) {
+  const role = props.role;
+  const name = props.name;
+  //const displayName = name.charAt(0).toUpperCase() + name.slice(1); 
+
+  console.log(role);
   return (
     <View style={ProfStyle.body}>
       <View style={ProfStyle.Header}>
@@ -17,7 +29,7 @@ const Profile = ({navigation}) => {
             style={ProfStyle.img}
           />
           <TouchableOpacity
-            onPress={() => navigation.navigate('FormProfile')}>
+            onPress={() => props.navigation.navigate('FormProfile')}>
             <Image
               source={require('../assets/images/editicon.png')}
               style={{width: 20, height: 20, marginLeft: 80, marginTop: -10}}
@@ -25,7 +37,7 @@ const Profile = ({navigation}) => {
           </TouchableOpacity>
         </View>
         <View style={ProfStyle.headername}>
-          <Text style={ProfStyle.username}>Emir Kharisma</Text>
+          <Text style={ProfStyle.username}>{name}</Text>
           <Text style={ProfStyle.status}>online</Text>
         </View>
       </View>
@@ -41,9 +53,7 @@ const Profile = ({navigation}) => {
                 <Body>
                   <Text
                     style={ProfStyle.menuBtn}
-                    onPress={() =>
-                     navigation.navigate('Notif')
-                    }>
+                    onPress={() => props.navigation.navigate('Notif')}>
                     Phone Numbers
                   </Text>
                 </Body>
@@ -134,7 +144,7 @@ const Profile = ({navigation}) => {
                 button
                 onPress={() => {
                   alert('Anda Telah Keluar');
-                  navigation.navigate('Login');
+                  props.navigation.navigate('Login');
                 }}>
                 <Left>
                   <Image source={require('../assets/images/LogoutIcon.png')} />
@@ -152,7 +162,7 @@ const Profile = ({navigation}) => {
       </ScrollView>
     </View>
   );
-};
+}
 
 const styles = StyleSheet.create({
   container: {
@@ -191,5 +201,20 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
 });
+const mapStateToProps = state => ({
+  auth: state.auth,
+  role: state.auth.resultLogin.data.role,
+  email: state.auth.resultLogin.data.email,
+  getUserReducer: state.getUserReducer,
+  name: state.getUserReducer.currentUser.name,
+});
 
-export default Profile;
+// const mapDispatchToProps = dispatch => ({
+
+// });
+
+const ConnectedProfile = connect(
+  mapStateToProps,
+  // mapDispatchToProps,
+)(Profile);
+export default ConnectedProfile;

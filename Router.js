@@ -87,7 +87,7 @@ function HomeTabs() {
         showLabel: false,
       }}>
       <Tab.Screen name="Dashboard" component={Dashboard} />
-      <Tab.Screen name="Activity" component={ActStuNewClass} />
+      <Tab.Screen name="Activity" component={Activity} />
       <Tab.Screen name="Chat" component={Chat} />
       <Tab.Screen name="Profile" component={Profile} />
     </Tab.Navigator>

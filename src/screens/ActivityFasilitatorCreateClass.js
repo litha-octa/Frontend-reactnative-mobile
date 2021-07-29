@@ -1,31 +1,46 @@
 /* eslint-disable react-native/no-inline-styles */
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, {useRef,useState} from 'react';
-import {View, Text, TextInput, Image, ScrollView,Alert} from 'react-native';
+import React, {useRef, useState} from 'react';
+import {View, Text, TextInput, Image, ScrollView, Alert} from 'react-native';
 import {ActFas} from '../components/Act/ActFas';
 import NotifService from './../../NotifService';
 import {
   List,
   ListItem,
-  Left,
-  Right,
   Body,
   Container,
-  Footer,
-  FooterTab,
   Button,
   Picker,
   Item,
 } from 'native-base';
 import DateTimePicker from '@react-native-community/datetimepicker';
-function ActivityFas({navigation}) {
+import {connect} from 'react-redux';
+import {DOMAIN_API, PORT_API} from '@env';
+import {postNewClass} from '../redux/actions/newClass';
+
+function ActivityFas(props) {
+  const [class_name, setClass_name] = useState('');
+  const [category_id, setCategory_id] = useState('');
+  const [description, setDescription] = useState('');
+  const [level_id, setLevel_id] = useState('');
+  const [pricing, setPricing] = useState('');
+
+  const createClassHandler = e => {
+    e.preventDefault();
+    props.postNewClass(
+      `${DOMAIN_API}:${PORT_API}/api/v1/newclass/create/`,
+      data,
+    );
+    //props.postNewClass(`http://192.168.1.5:${PORT_API}/api/v1/newclass/create`, data);
+    //console.log(data);
+  };
+
   const [registerToken, setRegisterToken] = useState('');
   const [fcmRegistered, setFcmRegistered] = useState(false);
   const onRegister = token => {
     setRegisterToken(token.token);
     setFcmRegistered(true);
   };
-
   const onNotif = notif => {
     Alert.alert(notif.title, notif.message);
   };
@@ -69,7 +84,7 @@ function ActivityFas({navigation}) {
                 <Text
                   style={{width: 250}}
                   onPress={() => {
-                    navigation.navigate('ActFasClassDetail');
+                    props.navigation.navigate('ActFasClassDetail');
                   }}>
                   {classData.name1}
                 </Text>
@@ -126,6 +141,8 @@ function ActivityFas({navigation}) {
                   backgroundColor: '#EBEBEB',
                   height: 30,
                 }}
+                value={class_name}
+                onChangeText={text => setClass_name(text)}
               />
             </View>
             <View
@@ -155,7 +172,11 @@ function ActivityFas({navigation}) {
                   }}>
                   Select
                 </Text>
-                <Picker mode="dialog" style={{backgroundColor: '#5784BA'}}>
+                <Picker
+                  mode="dialog"
+                  style={{backgroundColor: '#5784BA'}}
+                  selectedValue={category_id}
+                  onValueChange={e => setCategory_id(e)}>
                   <Picker.Item
                     style={ActFas.categoryItem}
                     label="Finance"
@@ -225,7 +246,9 @@ function ActivityFas({navigation}) {
                   marginTop: -5,
                   marginLeft: 50,
                   backgroundColor: '#5784BA',
-                }}>
+                }}
+                selectedValue={level_id}
+                onValueChange={e => setLevel_id(e)}>
                 <Text
                   style={{
                     color: 'white',
@@ -293,9 +316,11 @@ function ActivityFas({navigation}) {
                   marginTop: '7%',
                   marginBottom: '20%',
                 }}
-                onPress={() => {
-                  notif.localNotif();
-                }}>
+                // onPress={() => {
+                //   notif.localNotif();
+                // }}
+                onPress={createClassHandler}
+                >
                 <Text
                   style={{
                     fontFamily: 'Montserrat-Medium',
@@ -310,40 +335,17 @@ function ActivityFas({navigation}) {
           </Container>
         </View>
       </ScrollView>
-
-      <Footer>
-        <FooterTab>
-          <Button
-            style={ActFas.footer}
-            onPress={() => {
-              navigation.navigate('DashFas');
-            }}>
-            <Image source={require('../assets/images/Home-Off.png')} />
-          </Button>
-          <Button
-            style={ActFas.footer}
-            onPress={() => {
-              navigation.navigate('ActivityFas');
-            }}>
-            <Image source={require('../assets/images/Act-On.png')} />
-          </Button>
-          <Button
-            style={ActFas.footer}
-            onPress={() => {
-              navigation.navigate('Chat');
-            }}>
-            <Image source={require('../assets/images/Chat-Off.png')} />
-          </Button>
-          <Button
-            style={ActFas.footer}
-            onPress={() => {
-              navigation.navigate('Profile');
-            }}>
-            <Image source={require('../assets/images/Prof-Off.png')} />
-          </Button>
-        </FooterTab>
-      </Footer>
     </View>
   );
 }
-export default ActivityFas;
+const mapStateToProps = state => ({
+  postNewClassReducer: state.postNewClassReducer,
+});
+const mapDispatchToProps = dispatch => ({
+  postNewClass: (url, data) => {
+    dispatch(postNewClass(url, data));
+  },
+});
+export default connect(mapStateToProps, mapDispatchToProps)(ActivityFas);
+
+//export default ActivityFas;

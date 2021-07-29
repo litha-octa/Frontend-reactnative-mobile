@@ -1,4 +1,4 @@
-import React, {useEffect, useState, useRef} from 'react';
+import React, {useEffect, useRef} from 'react';
 import {
   View,
   Text,
@@ -7,36 +7,48 @@ import {
   ScrollView,
   TouchableOpacity,
 } from 'react-native';
-import {Card, CardItem, Body, Footer, FooterTab, Button} from 'native-base';
+//import {Card, CardItem, Body, Footer, FooterTab, Button} from 'native-base';
 import {connect} from 'react-redux';
 import {DOMAIN_API, PORT_API} from '@env';
-import getUser from '../redux/actions/getUser';
+import {getUser} from '../redux/actions/getUser';
 import {DashStyle} from '../components/Dash/DashStyle';
 import Student from '../components/Dash/Student';
 import DashFas from '../components/Dash/Fasilitator';
-import axios from 'axios';
+//import axios from 'axios';
 
 function Dashboard(props) {
   const role = props.role;
-  const email = props.email;
-  console.log(role,email);
-
+  // console.log(role);
+  const {getUser} = props;
   useEffect(() => {
-    props.getUser(`${DOMAIN_API}:${PORT_API}/api/v1/usr/`, email);
-  });
-  // if(getuser.ispending){
-  //   console.log("loading")
-  // }
-  // else if(getUser.isFulfilled){
-  //   console.log('fulfilled')
-  // }
-  // else{
-  //   console.log('errorrrrr')
-  // };
+    const email = props.email;
+    getUser(`${DOMAIN_API}:${PORT_API}/api/v1/usr/${email}`);
+    //getUser(`http://192.168.1.5:${PORT_API}/api/v1/usr/${email}`);
+  }, []);
 
-  const data = {
-    //username: props.getUser.currentUser.name,
-  };
+  const ref = useRef();
+  useEffect(() => {
+    if (!ref.current) {
+      ref.current = true;
+    } else {
+      if (props.getUserReducer.isPending) {
+        console.log('Loading...');
+      } else if (props.getUserReducer.isFulfilled) {
+        console.log(props.getUserReducer.currentUser);
+      } else if (props.getUserReducer.isRejected) {
+        console.log(props.getUserReducer.result);
+        console.log('get user data rejected : errroooorrrr');
+      }
+    }
+  }, [
+    props.getUserReducer.isPending,
+    props.getUserReducer.isFulfilled,
+    props.getUserReducer.isRejected,
+  ]);
+  const name = props.name;
+  //const name ="litha";
+  //const displayName = name.charAt(0).toUpperCase() + name.slice(1);
+
   return (
     <View style={DashStyle.body}>
       <View style={DashStyle.header}>
@@ -53,7 +65,7 @@ function Dashboard(props) {
             style={{width: 30, height: 30}}
           />
         </TouchableOpacity>
-        <Text style={DashStyle.username}>Emir Khrisma</Text>
+        <Text style={DashStyle.username}>{name}</Text>
         <TextInput
           style={DashStyle.searchBar}
           placeholder="Looking for something?"
@@ -67,7 +79,6 @@ function Dashboard(props) {
           />
         </View>
         {role === 'student' ? <Student /> : <DashFas />}
-        <Student />
       </ScrollView>
     </View>
   );
@@ -77,6 +88,8 @@ const mapStateToProps = state => ({
   auth: state.auth,
   role: state.auth.resultLogin.data.role,
   email: state.auth.resultLogin.data.email,
+  getUserReducer: state.getUserReducer,
+  name: state.getUserReducer.currentUser.name,
 });
 
 const mapDispatchToProps = dispatch => ({

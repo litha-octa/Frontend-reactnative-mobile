@@ -3,7 +3,7 @@ import {View, Text, Image, TouchableOpacity} from 'react-native';
 import {Card, CardItem, Body} from 'native-base';
 import {DashFasStyle} from './DashFasStyle';
 
-const DashFas = ({navigation}) => {
+function DashFas(props) {
   const data = {
     username: 'Jojo',
     date: 'October 11',
@@ -118,7 +118,7 @@ const DashFas = ({navigation}) => {
       <TouchableOpacity
         style={DashFasStyle.createBtn}
         onPress={() => {
-          navigation.navigate('ActivityFas');
+          props.navigation.navigate('Activity');
         }}>
         <Image
           source={require('../../assets/images/PlusIcon.png')}
@@ -136,6 +136,6 @@ const DashFas = ({navigation}) => {
       </TouchableOpacity>
     </View>
   );
-};
+}
 
 export default DashFas;

@@ -1,47 +1,85 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react-native/no-inline-styles */
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useRef} from 'react';
 import {
   View,
   Text,
   Image,
   ScrollView,
   KeyboardAvoidingView,
-  ActionSheet,
 } from 'react-native';
 import {Card, CardItem, Label, Input, Button} from 'native-base';
-import {launchImageLibrary, launchCamera} from 'react-native-image-picker';
-import axios from 'axios';
+import {connect} from 'react-redux';
+import {updateUser} from '../redux/actions/getUser';
 import {DOMAIN_API, PORT_API} from '@env';
 
-const FormProfile = ({...props}) => {
-  const [avatar, setAvatar] = useState();
-  const [newAvatar, setNewAvatar] = useState();
-  const [isAvatarUpdate, setIsAvatarUpdate] = useState(false);
-  const [isAvatarChanged, setIsAvatarChanged] = useState(false);
-  
-  const choosePhotoHandler = () => {
-    launchImageLibrary({noData: true}, response => {
-      // console.log(response);
-      if (response) {
-        setNewAvatar(response);
-        setIsAvatarUpdate(true);
-      } else {
-        setNewAvatar(avatar);
-      }
-    });
+function FormProfile(props) {
+  // const [updateUser, setUpdateUser] = useState({
+  //   name: '',
+  //   fullname: '',
+  //   email: '',
+  //   phone: '',
+  // });
+  const {getUserReducer} = props;
+  const {updateUserReducer} = props;
+  const currentName = props.name;
+  const currentPhone = props.phone;
+  const currentEmail = props.email;
+  const currentFullname = props.fullname;
+  //const avatar = props.avatar;
+
+  const [fullname, setFullname] = useState(
+    currentFullname ?? 'Insert Fullname',
+  );
+  const [name, setName] = useState(currentName ?? 'Insert Name');
+  const [email, setEmail] = useState(currentEmail ?? 'Insert Email');
+  const [phone, setPhone] = useState(currentPhone ?? 'Insert Phone Number');
+
+  const updateHandler = e => {
+    e.preventDefault();
+    const user_id = props.user_id;
+    console.log(`user id = ${user_id}`);
+    let formData = new FormData();
+    fullname !== currentFullname && fullname !== 'Insert Fullname'
+      ? formData.append('fullname', fullname)
+      : null;
+    name !== currentName && name !== 'Insert Name'
+      ? formData.append('name', name)
+      : null;
+    email !== currentEmail && email !== 'Insert Email'
+      ? formData.append('email', email)
+      : null;
+    phone !== currentPhone && phone !== 'Insert Phone Number'
+      ? formData.append('phone', phone)
+      : null;
+
+    props.updateUser(
+      `${DOMAIN_API}:${PORT_API}/api/v1/usr/${user_id}`,
+      formData,
+    );
+    //props.updateUser(`http://192.168.1.5:${PORT_API}/api/v1/usr/${user_id}`, updateUser);
+    console.log(formData);
   };
-  const launchCameraHandler = () => {
-    launchCamera({noData: true}, response => {
-      // console.log(response);
-      if (response) {
-        setNewAvatar(response);
-        setIsAvatarUpdate(true);
-      } else {
-        setNewAvatar(avatar);
+  const ref = useRef();
+  useEffect(() => {
+    if (!ref.current) {
+      ref.current = true;
+    } else {
+      if (props.updateUserReducer.isPending) {
+        console.log('Update Propfile : Loading...');
+      } else if (props.updateUserReducer.isFulfilled) {
+        console.log('Update Profile : Success');
+        props.navigation.navigate('Dashboard');
+      } else if (props.updateUserReducer.isRejected) {
+        console.log('Update Profile : errroooorrrr !!');
       }
-    });
-  };
+    }
+  }, [
+    props.updateUserReducer.isPending,
+    props.updateUserReducer.isFulfilled,
+    props.updateUserReducer.isRejected,
+  ]);
+
   return (
     <KeyboardAvoidingView>
       <ScrollView>
@@ -59,6 +97,7 @@ const FormProfile = ({...props}) => {
             </Text>
             <Image
               source={require('../assets/images/profile.png')}
+              //source= {avatar}
               style={{
                 width: 200,
                 height: 200,
@@ -101,8 +140,7 @@ const FormProfile = ({...props}) => {
                     fontWeight: 'bold',
                     fontSize: 17,
                     marginLeft: 17,
-                  }}
-                  onPress={() => choosePhotoHandler}>
+                  }}>
                   From Galery
                 </Text>
               </Button>
@@ -129,26 +167,34 @@ const FormProfile = ({...props}) => {
           </View>
           <Card>
             <CardItem>
-              <Label>Name</Label>
-              <Input />
+              <Label>Name : </Label>
+              <Input value={name} onChangeText={text => setName(text)} />
             </CardItem>
           </Card>
           <Card>
             <CardItem>
-              <Label>Full Name</Label>
-              <Input />
+              <Label>Full Name : </Label>
+              <Input
+                value={fullname}
+                onChangeText={text => setFullname(text)}
+              />
             </CardItem>
           </Card>
           <Card>
             <CardItem>
-              <Label>Email</Label>
-              <Input />
+              <Label>Email : </Label>
+              <Input value={email} onChangeText={text => setEmail(text)} />
             </CardItem>
           </Card>
           <Card>
             <CardItem>
-              <Label>Phone</Label>
-              <Input keyboardType="numeric" />
+              <Label>Phone : </Label>
+              <Input
+                keyboardType="numeric"
+                style={{color: 'black'}}
+                value={phone}
+                onChangeText={text => setPhone(text)}
+              />
             </CardItem>
           </Card>
           <Button
@@ -158,7 +204,8 @@ const FormProfile = ({...props}) => {
               backgroundColor: '#5784BA',
               borderRadius: 10,
               marginTop: 10,
-            }}>
+            }}
+            onPress={updateHandler}>
             <Text
               style={{
                 color: 'white',
@@ -192,5 +239,27 @@ const FormProfile = ({...props}) => {
       </ScrollView>
     </KeyboardAvoidingView>
   );
-};
-export default FormProfile;
+}
+const mapStateToProps = state => ({
+  //email: state.auth.resultLogin.data.email,
+  updateUserReducer: state.updateUserReducer,
+  getUserReducer: state.getUserReducer,
+  name: state.getUserReducer.currentUser.name,
+  phone: state.getUserReducer.currentUser.phone,
+  fullname: state.getUserReducer.currentUser.fullname,
+  email: state.getUserReducer.currentUser.email,
+  avatar: state.getUserReducer.currentUser.avatar,
+  user_id: state.getUserReducer.currentUser.user_id,
+});
+
+const mapDispatchToProps = dispatch => ({
+  updateUser: (url, data) => {
+    dispatch(updateUser(url, data));
+  },
+});
+
+const ConnectedFormProfile = connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(FormProfile);
+export default ConnectedFormProfile;

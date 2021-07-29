@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect, useRef} from 'react';
 import {View, Text, Picker, TextInput, Image, ScrollView} from 'react-native';
 import axios from 'axios';
 import {DOMAIN_API, PORT_API} from '@env';
@@ -17,20 +17,44 @@ import {
   FooterTab,
   Button,
 } from 'native-base';
+import getNewClass from '../redux/actions/newClass';
 
 function ActStuNewClass(props) {
-  const [category, setCategory] = useState('');
   const classData = {
     name: 'Front-end fundamentals',
     progress: '80%',
     score: '80',
   };
-  const getNewClass = () => {
-    axios
-      .get(`${DOMAIN_API}:${PORT_API}/api/v1/newclass/`)
-      .then(res => console.log(res.data.result))
-      .catch(err => console.log(err));
-  };
+  const {getNewClass} = props;
+  //console.log(getNewClass);
+  const class_name = props.class_name;
+  //console.log(class_name);
+  useEffect(() => {
+    getNewClass(`${DOMAIN_API}:${PORT_API}/api/v1/newclass/`);
+    //getNewClass(`http://192.168.1.5:${PORT_API}/api/v1/newclass/`);
+  },[]);
+  
+        //console.log(props.getNewClassReducer.isPending);
+  const ref = useRef();
+  useEffect(() => {
+    if (!ref.current) {
+      ref.current = true;
+    } else {
+      if (props.getNewClassReducer.isPending) {
+        console.log('get New class Loading...');
+      } else if (props.getNewClassReducer.isFulfilled) {
+        console.log('get New class suscces');
+        console.log(props.getNewClassReducer.isFulfilled);
+      } else if (props.getNewClassReducer.isRejected) {
+        //console.log(props.getNewClassReducer.result);
+        console.log('get user data rejected : errroooorrrr');
+      }
+    }
+  }, [
+    props.getNewClassReducer.isPending,
+    props.getNewClassReducer.isFulfilled,
+    props.getNewClassReducer.isRejected,
+  ]);
   return (
     <View style={ActStyle2.body}>
       <View style={ActStyle2.header}>
@@ -111,36 +135,8 @@ function ActStuNewClass(props) {
                 <Text>ClassName Level Pricing</Text>
               </ListItem>
               <ListItem>
-                <Text>{classData.name}</Text>
+                <Text>{class_name}</Text>
                 <Text style={{marginLeft: 10}}> Intermediate $10</Text>
-                <Button success style={ActStyle2.registerBtn}>
-                  <Text style={ActStyle2.buttonLabel}> Success </Text>
-                </Button>
-              </ListItem>
-              <ListItem>
-                <Text>{classData.name}</Text>
-                <Text style={{marginLeft: 20}}> Beginner $10</Text>
-                <Button success style={ActStyle2.registerBtn}>
-                  <Text style={ActStyle2.buttonLabel}> Success </Text>
-                </Button>
-              </ListItem>
-              <ListItem>
-                <Text>{classData.name}</Text>
-                <Text style={{marginLeft: 20}}> Beginner $10</Text>
-                <Button success style={ActStyle2.registerBtn}>
-                  <Text style={ActStyle2.buttonLabel}> Success </Text>
-                </Button>
-              </ListItem>
-              <ListItem>
-                <Text>{classData.name}</Text>
-                <Text style={{marginLeft: 20}}> Beginner $10</Text>
-                <Button success style={ActStyle2.registerBtn}>
-                  <Text style={ActStyle2.buttonLabel}> Success </Text>
-                </Button>
-              </ListItem>
-              <ListItem>
-                <Text>{classData.name}</Text>
-                <Text style={{marginLeft: 20}}> Beginner $10</Text>
                 <Button success style={ActStyle2.registerBtn}>
                   <Text style={ActStyle2.buttonLabel}> Success </Text>
                 </Button>
@@ -152,4 +148,24 @@ function ActStuNewClass(props) {
     </View>
   );
 }
-export default ActStuNewClass;
+const mapStateToProps = state => ({
+   role: state.auth.resultLogin.data.role,
+   getUserReducer: state.getUserReducer,
+  name: state.getUserReducer.currentUser.name,
+  getNewClassReducer: state.getNewClassReducer,
+  class_name: state.getNewClassReducer.results.class_name,
+});
+
+const mapDispatchToProps = dispatch => ({
+  getNewClass: url => {
+    dispatch(getNewClass(url));
+  },
+});
+
+const ConnectedActStuNewClass = connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(ActStuNewClass);
+export default ConnectedActStuNewClass;
+
+//export default ActStuNewClass;
