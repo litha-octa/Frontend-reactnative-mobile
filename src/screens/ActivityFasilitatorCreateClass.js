@@ -27,9 +27,21 @@ function ActivityFas(props) {
 
   const createClassHandler = e => {
     e.preventDefault();
+    let formData = new FormData();
+    formData.append('class_name', class_name);
+    formData.append('category_id', category_id);
+    formData.append('description', description);
+    formData.append('level_id', level_id);
+    formData.append('pricing', pricing);
+
     props.postNewClass(
       `${DOMAIN_API}:${PORT_API}/api/v1/newclass/create/`,
-      data,
+      formData,
+      {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      },
     );
     //props.postNewClass(`http://192.168.1.5:${PORT_API}/api/v1/newclass/create`, data);
     //console.log(data);
@@ -139,7 +151,7 @@ function ActivityFas(props) {
                   fontSize: 20,
                   marginLeft: 10,
                   backgroundColor: '#EBEBEB',
-                  height: 30,
+                  height: 40,
                 }}
                 value={class_name}
                 onChangeText={text => setClass_name(text)}
@@ -157,7 +169,7 @@ function ActivityFas(props) {
                 picker
                 style={{
                   width: 100,
-                  height: 30,
+                  height: 40,
                   borderRadius: 10,
                   marginTop: -5,
                   marginLeft: 30,
@@ -225,7 +237,7 @@ function ActivityFas(props) {
                   fontSize: 20,
                   marginLeft: 40,
                   backgroundColor: '#EBEBEB',
-                  height: 30,
+                  height: 40,
                 }}
               />
             </View>
@@ -307,6 +319,8 @@ function ActivityFas(props) {
                   marginTop: 6,
                   backgroundColor: '#EBEBEB',
                 }}
+                value={description}
+                onChangeText={text => setDescription(text)}
               />
               <Button
                 success
@@ -316,11 +330,12 @@ function ActivityFas(props) {
                   marginTop: '7%',
                   marginBottom: '20%',
                 }}
-                // onPress={() => {
-                //   notif.localNotif();
-                // }}
-                onPress={createClassHandler}
-                >
+                onPress={() => {
+                   notif.localNotif();
+                   {
+                     createClassHandler;
+                   }
+                 }}>
                 <Text
                   style={{
                     fontFamily: 'Montserrat-Medium',

@@ -53,11 +53,8 @@ function FormProfile(props) {
       ? formData.append('phone', phone)
       : null;
 
-    props.updateUser(
-      `${DOMAIN_API}:${PORT_API}/api/v1/usr/${user_id}`,
-      formData,
-    );
-    //props.updateUser(`http://192.168.1.5:${PORT_API}/api/v1/usr/${user_id}`, updateUser);
+    props.updateUser(`${DOMAIN_API}:${PORT_API}/api/v1/usr/${user_id}`,formData);
+    //props.updateUser(`http://192.168.1.5:${PORT_API}/api/v1/usr/${user_id}`, formData);
     console.log(formData);
   };
   const ref = useRef();

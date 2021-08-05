@@ -23,7 +23,7 @@ function Dashboard(props) {
   useEffect(() => {
     const email = props.email;
     getUser(`${DOMAIN_API}:${PORT_API}/api/v1/usr/${email}`);
-    //getUser(`http://192.168.1.5:${PORT_API}/api/v1/usr/${email}`);
+    //getUser(`http://192.168.1.18:${PORT_API}/api/v1/usr/${email}`);
   }, []);
 
   const ref = useRef();
