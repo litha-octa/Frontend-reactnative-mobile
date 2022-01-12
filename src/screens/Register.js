@@ -154,7 +154,7 @@ function Register({...props}) {
       email: dataRegister.email,
       password: dataRegister.password,
     };
-    console.log(data)
+    console.log(data);
     props.register(`${DOMAIN_API}:${PORT_API}/api/v1/auth/regis/`, data);
   };
   useEffect(() => {
@@ -180,11 +180,11 @@ function Register({...props}) {
       } else if (props.auth.isRegisterFulfilled) {
         console.log('sukses');
         setModalVisible(true);
-       } else if (props.auth.isRegisterRejected){
-          console.log(props.auth.errorRegister)
-       }
-      }},
- [
+      } else if (props.auth.isRegisterRejected) {
+        console.log(props.auth.errorRegister);
+      }
+    }
+  }, [
     props.auth.isRegisterPending,
     props.auth.isRegisterFulfilled,
     props.auth.isRegisterRejected,

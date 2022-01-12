@@ -6,7 +6,13 @@ import {
   Image,
   ScrollView,
   TouchableOpacity,
+  KeyboardAvoidingView,
 } from 'react-native';
+import {    ImgSlider1,
+            ImgSlider2,
+            ActivityBg,
+            Math,
+        } from '../assets/images';
 //import {Card, CardItem, Body, Footer, FooterTab, Button} from 'native-base';
 import {connect} from 'react-redux';
 import {DOMAIN_API, PORT_API} from '@env';
@@ -14,16 +20,19 @@ import {getUser} from '../redux/actions/getUser';
 import {DashStyle} from '../components/Dash/DashStyle';
 import Student from '../components/Dash/Student';
 import DashFas from '../components/Dash/Fasilitator';
-//import axios from 'axios';
+import {SliderBox} from 'react-native-image-slider-box';
 
 function Dashboard(props) {
   const role = props.role;
-  // console.log(role);
   const {getUser} = props;
+
+  const slider = [ImgSlider1, ImgSlider2, ActivityBg , Math];
+
   useEffect(() => {
+    //const token = props.token;
     const email = props.email;
     getUser(`${DOMAIN_API}:${PORT_API}/api/v1/usr/${email}`);
-    //getUser(`http://192.168.1.18:${PORT_API}/api/v1/usr/${email}`);
+    // getUser(`http://192.168.99.128:${PORT_API}/api/v1/usr/${email}`);
   }, []);
 
   const ref = useRef();
@@ -46,46 +55,50 @@ function Dashboard(props) {
     props.getUserReducer.isRejected,
   ]);
   const name = props.name;
-  //const name ="litha";
-  //const displayName = name.charAt(0).toUpperCase() + name.slice(1);
+  // const displayName = name.charAt(0).toUpperCase() + name.substr(1).toLowerCase();
+  // const name = "litha";
+  // const displayName = name.charAt(0).toUpperCase() + name.slice(1);
 
   return (
-    <View style={DashStyle.body}>
-      <View style={DashStyle.header}>
-        <Text style={DashStyle.welcome}>Welcome back,</Text>
-        <TouchableOpacity
-          style={{
-            marginLeft: '80%',
-            marginTop: -25,
-            width: 35,
-            height: 35,
-          }}>
-          <Image
-            source={require('../assets/images/NotifIcon4.png')}
-            style={{width: 30, height: 30}}
-          />
-        </TouchableOpacity>
-        <Text style={DashStyle.username}>{name}</Text>
-        <TextInput
-          style={DashStyle.searchBar}
-          placeholder="Looking for something?"
-        />
-      </View>
-      <ScrollView>
-        <View onPress={() => props.navigation.navigate('News')}>
-          <Image
-            source={require('../assets/images/Carousel.png')}
-            style={DashStyle.imgNews}
-          />
+    <ScrollView>
+      <KeyboardAvoidingView>
+        <View style={DashStyle.body}>
+          <View style={DashStyle.header}>
+            <Text style={DashStyle.welcome}>Welcome back,</Text>
+            <TouchableOpacity
+              style={{
+                marginLeft: '80%',
+                marginTop: -25,
+                width: 35,
+                height: 35,
+              }}>
+              <Image
+                source={require('../assets/images/NotifIcon4.png')}
+                style={{width: 30, height: 30}}
+              />
+            </TouchableOpacity>
+            <Text style={DashStyle.username}>{name}</Text>
+            <TextInput
+              style={DashStyle.searchBar}
+              placeholder="Looking for something?"
+            />
+          </View>
+          <ScrollView>
+            <View onPress={() => props.navigation.navigate('News')}>
+              {/* <Image source={imgSlider2} style={DashStyle.imgNews} /> */}
+              <SliderBox images={slider} style={DashStyle.imgNews} />
+            </View>
+            {role === 'student' ? <Student /> : <DashFas />}
+          </ScrollView>
         </View>
-        {role === 'student' ? <Student /> : <DashFas />}
-      </ScrollView>
-    </View>
+      </KeyboardAvoidingView>
+    </ScrollView>
   );
 }
 
 const mapStateToProps = state => ({
   auth: state.auth,
+  //token : state.auth.resultLogin.data.token,
   role: state.auth.resultLogin.data.role,
   email: state.auth.resultLogin.data.email,
   getUserReducer: state.getUserReducer,

@@ -1,6 +1,6 @@
 import React from 'react';
 import {View, Text, TouchableOpacity, Image, ScrollView} from 'react-native';
-import {ACDStyle} from '../components/Act/ACDStyle';
+import {ACDStyle} from '../ACDStyle';
 import {
   List,
   ListItem,
@@ -12,7 +12,7 @@ import {
   Button,
 } from 'native-base';
 
-function ActFasClassDetail({navigation}) {
+function ActFasClassDetail(props) {
   const classes = {
     name: 'Front-end fundamentals',
     content:
@@ -25,10 +25,10 @@ function ActFasClassDetail({navigation}) {
       <View style={ACDStyle.header}>
         <TouchableOpacity
           onPress={() => {
-            navigation.navigate('ActStuNewClass');
+            props.navigation.navigate('ActStuNewClass');
           }}>
           <Image
-            source={require('../assets/images/backWhite.png')}
+            source={require('../../../assets/images/backWhite.png')}
             style={ACDStyle.backIcon}
           />
         </TouchableOpacity>
@@ -37,11 +37,11 @@ function ActFasClassDetail({navigation}) {
       <ScrollView>
         <View>
           <Image
-            source={require('../assets/images/backgroundMobile.png')}
+            source={require('../../../assets/images/backgroundMobile.png')}
             style={ACDStyle.BgImg}
           />
           <Image
-            source={require('../assets/images/iconComp.png')}
+            source={require('../../../assets/images/iconComp.png')}
             style={ACDStyle.CompImg}
           />
           <Text style={ACDStyle.nameClass}>{classes.name}</Text>
@@ -64,13 +64,13 @@ function ActFasClassDetail({navigation}) {
             <Text
               style={{marginRight: 20, fontWeight: 'bold'}}
               onPress={() => {
-                navigation.navigate('ActFasMember');
+                props.navigation.navigate('ActFasMember');
               }}>
               Member
             </Text>
           </View>
 
-          <Image source={require('../assets/images/Linepolos.png')} />
+          <Image source={require('../../../assets/images/Linepolos.png')} />
           <Text style={ACDStyle.titleDesc}>Description</Text>
           <Text style={ACDStyle.contentDesc}>{classes.description}</Text>
           <Text style={ACDStyle.titleDesc}>What will I learn?</Text>
@@ -79,39 +79,6 @@ function ActFasClassDetail({navigation}) {
           <Text style={ACDStyle.contentDesc}>-{classes.content}</Text>
         </View>
       </ScrollView>
-
-      <Footer>
-        <FooterTab>
-          <Button
-            style={ACDStyle.footer}
-            onPress={() => {
-              navigation.navigate('DashStuAllSchedule');
-            }}>
-            <Image source={require('../assets/images/Home-Off.png')} />
-          </Button>
-          <Button
-            style={ACDStyle.footer}
-            onPress={() => {
-              navigation.navigate('ActStuNewClass');
-            }}>
-            <Image source={require('../assets/images/Act-On.png')} />
-          </Button>
-          <Button
-            style={ACDStyle.footer}
-            onPress={() => {
-              navigation.navigate('Chat');
-            }}>
-            <Image source={require('../assets/images/Chat-Off.png')} />
-          </Button>
-          <Button
-            style={ACDStyle.footer}
-            onPress={() => {
-              navigation.navigate('Profile');
-            }}>
-            <Image source={require('../assets/images/Prof-Off.png')} />
-          </Button>
-        </FooterTab>
-      </Footer>
     </View>
   );
 }

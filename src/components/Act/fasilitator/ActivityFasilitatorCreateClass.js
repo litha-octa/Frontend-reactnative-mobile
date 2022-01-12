@@ -1,9 +1,9 @@
 /* eslint-disable react-native/no-inline-styles */
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, {useRef, useState} from 'react';
+import React, {useRef, useState, useEffect} from 'react';
 import {View, Text, TextInput, Image, ScrollView, Alert} from 'react-native';
-import {ActFas} from '../components/Act/ActFas';
-import NotifService from './../../NotifService';
+import {ActFas} from '../ActFas';
+import NotifService from '../../../../NotifService';
 import {
   List,
   ListItem,
@@ -16,9 +16,9 @@ import {
 import DateTimePicker from '@react-native-community/datetimepicker';
 import {connect} from 'react-redux';
 import {DOMAIN_API, PORT_API} from '@env';
-import {postNewClass} from '../redux/actions/newClass';
+import {postNewClass} from '../../../redux/actions/newClass';
 
-function ActivityFas(props) {
+function ActivityFasilitator(props) {
   const [class_name, setClass_name] = useState('');
   const [category_id, setCategory_id] = useState('');
   const [description, setDescription] = useState('');
@@ -37,30 +37,45 @@ function ActivityFas(props) {
     props.postNewClass(
       `${DOMAIN_API}:${PORT_API}/api/v1/newclass/create/`,
       formData,
-      {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-        },
-      },
     );
     //props.postNewClass(`http://192.168.1.5:${PORT_API}/api/v1/newclass/create`, data);
     //console.log(data);
   };
 
-  const [registerToken, setRegisterToken] = useState('');
-  const [fcmRegistered, setFcmRegistered] = useState(false);
-  const onRegister = token => {
-    setRegisterToken(token.token);
-    setFcmRegistered(true);
-  };
-  const onNotif = notif => {
-    Alert.alert(notif.title, notif.message);
-  };
+  const ref = useRef();
+  useEffect(() => {
+    if (!ref.current) {
+      ref.current = true;
+    } else {
+      if (props.postNewClassReducer.isPending) {
+        console.log('create class : Loading...');
+      } else if (props.postNewClassReducer.isFulfilled) {
+        console.log('create class : successs !!!');
+      } else if (props.postNewClassReducer.isRejected) {
+        // console.log(props.postNewClassReducer.result);
+        console.log('create class : errroooorrrr');
+      }
+    }
+  }, [
+    props.postNewClassReducer.isPending,
+    props.postNewClassReducer.isFulfilled,
+    props.postNewClassReducer.isRejected,
+  ]);
 
-  const notif = new NotifService(onRegister, onNotif);
-  const handlePerm = perms => {
-    Alert.alert('Permissions', JSON.stringify(perms));
-  };
+  // const [registerToken, setRegisterToken] = useState('');
+  // const [fcmRegistered, setFcmRegistered] = useState(false);
+  // const onRegister = token => {
+  //   setRegisterToken(token.token);
+  //   setFcmRegistered(true);
+  // };
+  // const onNotif = notif => {
+  //   Alert.alert(notif.title, notif.message);
+  // };
+
+  // const notif = new NotifService(onRegister, onNotif);
+  // const handlePerm = perms => {
+  //   Alert.alert('Permissions', JSON.stringify(perms));
+  // };
 
   const classData = {
     name1: 'Front-end fundamentals',
@@ -95,15 +110,15 @@ function ActivityFas(props) {
               <Body style={{flexDirection: 'row'}}>
                 <Text
                   style={{width: 250}}
-                  onPress={() => {
-                    props.navigation.navigate('ActFasClassDetail');
-                  }}>
+                  onPress={() =>
+                    props.navigation.navigate('ActFasClassDetail')
+                  }>
                   {classData.name1}
                 </Text>
                 <Text>{classData.student1}</Text>
-                <Image source={require('../assets/images/stuIcon.png')} />
+                <Image source={require('../../../assets/images/stuIcon.png')} />
                 <Image
-                  source={require('../assets/images/arrow.png')}
+                  source={require('../../../assets/images/arrow.png')}
                   style={{marginLeft: '15%'}}
                 />
               </Body>
@@ -112,9 +127,9 @@ function ActivityFas(props) {
               <Body style={{flexDirection: 'row'}}>
                 <Text style={{width: 250}}>{classData.name2}</Text>
                 <Text>{classData.student2}</Text>
-                <Image source={require('../assets/images/stuIcon.png')} />
+                <Image source={require('../../../assets/images/stuIcon.png')} />
                 <Image
-                  source={require('../assets/images/arrow.png')}
+                  source={require('../../../assets/images/arrow.png')}
                   style={{marginLeft: '15%'}}
                 />
               </Body>
@@ -123,9 +138,9 @@ function ActivityFas(props) {
               <Body style={{flexDirection: 'row'}}>
                 <Text style={{width: 250}}>{classData.name3}</Text>
                 <Text>{classData.student3}</Text>
-                <Image source={require('../assets/images/stuIcon.png')} />
+                <Image source={require('../../../assets/images/stuIcon.png')} />
                 <Image
-                  source={require('../assets/images/arrow.png')}
+                  source={require('../../../assets/images/arrow.png')}
                   style={{marginLeft: '15%'}}
                 />
               </Body>
@@ -239,6 +254,8 @@ function ActivityFas(props) {
                   backgroundColor: '#EBEBEB',
                   height: 40,
                 }}
+                value={pricing}
+                onChangeText={text => setPricing(text)}
               />
             </View>
             <View
@@ -330,12 +347,13 @@ function ActivityFas(props) {
                   marginTop: '7%',
                   marginBottom: '20%',
                 }}
-                onPress={() => {
-                   notif.localNotif();
-                   {
-                     createClassHandler;
-                   }
-                 }}>
+                // onPress={() => {
+                //    notif.localNotif();
+                //    {
+                //      createClassHandler;
+                //    }
+                //  }}
+                onPress={createClassHandler}>
                 <Text
                   style={{
                     fontFamily: 'Montserrat-Medium',
@@ -361,6 +379,9 @@ const mapDispatchToProps = dispatch => ({
     dispatch(postNewClass(url, data));
   },
 });
-export default connect(mapStateToProps, mapDispatchToProps)(ActivityFas);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(ActivityFasilitator);
 
 //export default ActivityFas;

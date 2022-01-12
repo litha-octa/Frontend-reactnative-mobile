@@ -3,7 +3,7 @@ import {View, Text, Picker, TextInput, Image, ScrollView} from 'react-native';
 import axios from 'axios';
 import {DOMAIN_API, PORT_API} from '@env';
 import {connect} from 'react-redux';
-import {ActStyle2} from '../components/Act/ActStyle2';
+import {ActStyle2} from '../ActStyle2';
 import {
   Item,
   Select,
@@ -17,7 +17,7 @@ import {
   FooterTab,
   Button,
 } from 'native-base';
-import getNewClass from '../redux/actions/newClass';
+import getNewClass from '../../../redux/actions/newClass';
 
 function ActStuNewClass(props) {
   const classData = {
@@ -67,7 +67,7 @@ function ActStuNewClass(props) {
         </View>
 
         <View>
-          <List style={ActStyle2.listItem}>
+          {/* <List style={ActStyle2.listItem}>
             <ListItem>
               <Left>
                 <Text>{classData.name}</Text>
@@ -78,11 +78,11 @@ function ActStuNewClass(props) {
               <Right>
                 <Text style={ActStyle2.score}>
                   {classData.score}
-                  <Image source={require('../assets/images/List.png')} />
+                  <Image source={require('../../../assets/images/List.png')} />
                 </Text>
               </Right>
             </ListItem>
-          </List>
+          </List> */}
           <Text
             style={ActStyle2.viewAll}
             onPress={() => {
@@ -135,7 +135,7 @@ function ActStuNewClass(props) {
                 <Text>ClassName Level Pricing</Text>
               </ListItem>
               <ListItem>
-                <Text>{class_name}</Text>
+                {/* <Text>{class_name}</Text> */}
                 <Text style={{marginLeft: 10}}> Intermediate $10</Text>
                 <Button success style={ActStyle2.registerBtn}>
                   <Text style={ActStyle2.buttonLabel}> Success </Text>

@@ -17,28 +17,32 @@ import InsertEmail from './src/screens/InsertEmail';
 import AccountVer from './src/screens/AccountVer';
 import CreateNewPass from './src/screens/CreateNewPass';
 import PassChanged from './src/screens/PassChanged';
+
 //Dashboard
 import Dashboard from './src/screens/Dashboard';
 //student
 //import DashStuAllSchedule from './src/screens/DashStuAllSchedule';
+
 //fasilitator
 import DashFas from './src/components/Dash/Fasilitator';
+
 //activity
+import Activity from './src/screens/Activity';
 //student
 import ChatRoom from './src/screens/ChatRoom';
 import Notif from './src/screens/Notif';
 import News from './src/screens/News';
-import ActStuNewClass from './src/screens/ActivityStudentNewClass';
-import ActStuMyClass from './src/screens/ActivityStudent';
-import ActStuClassDetail from './src/screens/ActivityStudentClassDetail';
+import ActStuNewClass from './src/components/Act/student/ActivityStudentNewClass';
+import ActStuMyClass from './src/components/Act/student/ActivityStudent';
+import ActStuClassDetail from './src/components/Act/student/ActivityStudentClassDetail';
 //fasilitator
-import ActFasClassDetail from './src/screens/ActivityFasilitatorClassDetail';
-import ActFasMember from './src/screens/ActivityFasilitatorMember';
-import ActivityFas from './src/screens/ActivityFasilitatorCreateClass';
-import Activity from './src/screens/Activity';
+import ActFasClassDetail from './src/components/Act/fasilitator/ActivityFasilitatorClassDetail';
+import ActFasMember from './src/components/Act/fasilitator/ActivityFasilitatorMember';
+import ActivityFasilitator from './src/components/Act/fasilitator/ActivityFasilitatorCreateClass';
+
 //chat
 import Chat from './src/screens/Chat';
-import FormProfile from './src/screens/FormProfile';
+import FormProfile from './src/components/Profile/FormProfile';
 import SplashScreen from './src/screens/SplashScreen';
 
 const Stack = createStackNavigator();
@@ -130,7 +134,10 @@ function Router(props) {
         <Stack.Screen name="ActFasClassDetail" component={ActFasClassDetail} />
         <Stack.Screen name="ActFasMember" component={ActFasMember} />
 
-        <Stack.Screen name="ActivityFas" component={ActivityFas} />
+        <Stack.Screen
+          name="ActivityFasilitator"
+          component={ActivityFasilitator}
+        />
         <Stack.Screen name="Activity" component={Activity} />
         {/* Chat */}
         <Stack.Screen name="Chat" component={Chat} />

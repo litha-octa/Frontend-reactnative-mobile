@@ -10,7 +10,7 @@ import {
   Pressable,
   StyleSheet,
 } from 'react-native';
-import {ACDStyle} from '../components/Act/ACDStyle';
+import {ACDStyle} from '../ACDStyle';
 import {
   List,
   ListItem,
@@ -26,10 +26,10 @@ import {
 import ModalMember from './ModalMember';
 
 function ActFasMember({navigation}) {
-   const [modalVisible, setModalVisible] = useState(false);
+  const [modalVisible, setModalVisible] = useState(false);
   const classes = {
     name: 'Front-end fundamentals',
-   };
+  };
   return (
     <View style={ACDStyle.body}>
       <View style={ACDStyle.header}>
@@ -38,7 +38,7 @@ function ActFasMember({navigation}) {
             navigation.navigate('ActStuNewClass');
           }}>
           <Image
-            source={require('../assets/images/backWhite.png')}
+            source={require('../../../assets/images/backWhite.png')}
             style={ACDStyle.backIcon}
           />
         </TouchableOpacity>
@@ -47,11 +47,11 @@ function ActFasMember({navigation}) {
       <ScrollView>
         <View>
           <Image
-            source={require('../assets/images/backgroundMobile.png')}
+            source={require('../../../assets/images/backgroundMobile.png')}
             style={ACDStyle.BgImg}
           />
           <Image
-            source={require('../assets/images/iconComp.png')}
+            source={require('../../../assets/images/iconComp.png')}
             style={ACDStyle.CompImg}
           />
           <Text style={ACDStyle.nameClass}>{classes.name}</Text>
@@ -101,20 +101,20 @@ function ActFasMember({navigation}) {
               style={[styles.button, styles.buttonOpen]}
               onPress={() => setModalVisible(true)}>
               <CardItem>
-                <Image source={require('../assets/images/Member.png')} />
+                <Image source={require('../../../assets/images/Member.png')} />
                 <Text style={ACDStyle.nameMember}>Deddy</Text>
               </CardItem>
 
               <CardItem>
-                <Image source={require('../assets/images/Member.png')} />
+                <Image source={require('../../../assets/images/Member.png')} />
                 <Text style={ACDStyle.nameMember}>Cita Citata</Text>
               </CardItem>
               <CardItem>
-                <Image source={require('../assets/images/Member.png')} />
+                <Image source={require('../../../assets/images/Member.png')} />
                 <Text style={ACDStyle.nameMember}>Induk Bebek</Text>
               </CardItem>
               <CardItem>
-                <Image source={require('../assets/images/Member.png')} />
+                <Image source={require('../../../assets/images/Member.png')} />
                 <Text style={ACDStyle.nameMember}>Pagar Rumah</Text>
               </CardItem>
             </Pressable>
@@ -122,41 +122,9 @@ function ActFasMember({navigation}) {
         </View>
       </ScrollView>
 
-      <Footer>
-        <FooterTab>
-          <Button
-            style={ACDStyle.footer}
-            onPress={() => {
-              navigation.navigate('DashStuAllSchedule');
-            }}>
-            <Image source={require('../assets/images/Home-Off.png')} />
-          </Button>
-          <Button
-            style={ACDStyle.footer}
-            onPress={() => {
-              navigation.navigate('ActStuNewClass');
-            }}>
-            <Image source={require('../assets/images/Act-On.png')} />
-          </Button>
-          <Button
-            style={ACDStyle.footer}
-            onPress={() => {
-              navigation.navigate('Chat');
-            }}>
-            <Image source={require('../assets/images/Chat-Off.png')} />
-          </Button>
-          <Button
-            style={ACDStyle.footer}
-            onPress={() => {
-              navigation.navigate('Profile');
-            }}>
-            <Image source={require('../assets/images/Prof-Off.png')} />
-          </Button>
-        </FooterTab>
-      </Footer>
     </View>
   );
-};
+}
 const styles = StyleSheet.create({
   centeredView: {
     flex: 1,

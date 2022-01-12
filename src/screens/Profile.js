@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useRef} from 'react';
 import {
   View,
   Text,
@@ -8,15 +8,18 @@ import {
   StyleSheet,
 } from 'react-native';
 import {Card, CardItem, Left, Right, Body} from 'native-base';
+import RBSheet from 'react-native-raw-bottom-sheet';
 import {ProfStyle} from '../components/Profile/ProfStyle';
 import NotifService from './../../NotifService';
 import {connect} from 'react-redux';
 import {DOMAIN_API, PORT_API} from '@env';
+import {Button} from 'react-native-elements/dist/buttons/Button';
 
 function Profile(props) {
   const role = props.role;
   const name = props.name;
-  //const displayName = name.charAt(0).toUpperCase() + name.slice(1); 
+  const refRBSheet = useRef();
+  //const displayName = name.charAt(0).toUpperCase() + name.slice(1);
 
   console.log(role);
   return (
@@ -140,12 +143,7 @@ function Profile(props) {
                   <Image source={require('../assets/images/arrow.png')} />
                 </Right>
               </CardItem>
-              <CardItem
-                button
-                onPress={() => {
-                  alert('Anda Telah Keluar');
-                  props.navigation.navigate('Login');
-                }}>
+              <CardItem button onPress={() => refRBSheet.current.open()}>
                 <Left>
                   <Image source={require('../assets/images/LogoutIcon.png')} />
                 </Left>
@@ -159,48 +157,64 @@ function Profile(props) {
             </Card>
           </View>
         </View>
+        <RBSheet
+          ref={refRBSheet}
+          closeOnDragDown={true}
+          closeOnPressMask={false}
+          height={250}
+          customStyles={{
+            wrapper: {
+              backgroundColor: 'rgba(0,0,0,0.3)',
+            },
+            draggableIcon: {
+              backgroundColor: '#000',
+            },
+          }}>
+          <View style={ProfStyle.bottomSheet}>
+            <Text
+              style={{
+                textAlign: 'center',
+                fontWeight: 'bold',
+                fontSize: 25,
+                color: 'black',
+              }}>
+              Log out ?
+            </Text>
+            <View style={{flexDirection: 'row', flex: 1}}>
+              <TouchableOpacity
+                style={ProfStyle.bottomSheetBtn}
+                onPress={() => props.navigation.navigate('Login')}>
+                <Text
+                  style={{
+                    textAlign: 'center',
+                    fontWeight: 'bold',
+                    fontSize: 20,
+                    color: 'red',
+                  }}>
+                  Confirm
+                </Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                style={ProfStyle.bottomSheetBtn}
+                onPress={() => refRBSheet.current.close()}>
+                <Text
+                  style={{
+                    textAlign: 'center',
+                    fontWeight: 'bold',
+                    fontSize: 20,
+                    color: 'green',
+                  }}>
+                  Cancel
+                </Text>
+              </TouchableOpacity>
+            </View>
+          </View>
+        </RBSheet>
       </ScrollView>
     </View>
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#F5FCFF',
-  },
-  welcome: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
-  },
-  button: {
-    borderWidth: 1,
-    borderColor: '#000000',
-    margin: 5,
-    padding: 5,
-    width: '70%',
-    backgroundColor: '#DDDDDD',
-    borderRadius: 5,
-  },
-  textField: {
-    borderWidth: 1,
-    borderColor: '#AAAAAA',
-    margin: 5,
-    padding: 5,
-    width: '70%',
-  },
-  spacer: {
-    height: 10,
-  },
-  title: {
-    fontWeight: 'bold',
-    fontSize: 20,
-    textAlign: 'center',
-  },
-});
 const mapStateToProps = state => ({
   auth: state.auth,
   role: state.auth.resultLogin.data.role,

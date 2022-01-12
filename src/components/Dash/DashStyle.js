@@ -4,11 +4,13 @@ export const DashStyle = StyleSheet.create({
   body: {
     backgroundColor: '#E6EDF6',
     height: '100%',
+    width:'100%',
+    paddingBottom:'15%',
   },
   header: {
     backgroundColor: '#5784BA',
-    height: 200,
-    paddingTop: 30,
+    height: '28%',
+    paddingTop:'12%',
     paddingLeft: 20,
     borderBottomLeftRadius: 20,
     borderBottomRightRadius: 20,

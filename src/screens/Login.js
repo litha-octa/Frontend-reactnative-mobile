@@ -18,6 +18,7 @@ import {Form, Item, Input, Label, Button, Icon} from 'native-base';
 import {login} from '../redux/actions/auth';
 import {connect} from 'react-redux';
 import {DOMAIN_API, PORT_API} from '@env';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 
 function Login({...props}) {
   const [dataLogin, setDataLogin] = useState({name: '', password: ''});
@@ -120,7 +121,7 @@ function Login({...props}) {
   const loginHandler = e => {
     e.preventDefault();
     props.login(`${DOMAIN_API}:${PORT_API}/api/v1/auth/`, dataLogin);
-    //props.login(`http://192.168.1.18:${PORT_API}/api/v1/auth/`, dataLogin);
+    // props.login(`http://192.168.99.128:${PORT_API}/api/v1/auth/`, dataLogin);
     console.log(dataLogin);
   };
 
@@ -137,6 +138,7 @@ function Login({...props}) {
         console.log(props.auth.resultLogin);
         props.navigation.navigate('Dashboard');
         setIndicatorVisible(false);
+        setDataLogin({name:'', password:''});
       } else if (props.auth.isLoginRejected) {
         console.log('errroooorrrr');
         console.log(props.auth.errorLogin);
@@ -288,12 +290,15 @@ function Login({...props}) {
           </KeyboardAvoidingView>
 
           <View style={styles.txtFooter}>
-            <Text style={styles.txtNewUser}>New user?</Text>
-            <Text
-              style={styles.txtRegister}
-              onPress={() => props.navigation.navigate('Register')}>
-              Register
-            </Text>
+            <TouchableOpacity>
+              <Text style={styles.txtNewUser}>New user?</Text>
+
+              <Text
+                style={styles.txtRegister}
+                onPress={() => props.navigation.navigate('Register')}>
+                Register
+              </Text>
+            </TouchableOpacity>
           </View>
         </View>
       </ScrollView>

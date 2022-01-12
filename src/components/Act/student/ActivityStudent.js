@@ -1,6 +1,6 @@
 import React from 'react';
 import {View, Text, TouchableOpacity, Image, ScrollView} from 'react-native';
-import {ActStyle} from '../components/Act/ActStyle';
+import {ActStyle} from '../ActStyle';
 import {
   List,
   ListItem,
@@ -26,7 +26,7 @@ function ActStuMyClass({navigation}) {
             navigation.navigate('ActStuNewClass');
           }}>
           <Image
-            source={require('../assets/images/backWhite.png')}
+            source={require('../../../assets/images/backWhite.png')}
             style={ActStyle.backIcon}
           />
         </TouchableOpacity>
@@ -34,7 +34,7 @@ function ActStuMyClass({navigation}) {
       </View>
       <ScrollView>
         <View>
-          <Text style={ActStyle.subtitle}>Class Name              Progress                  Score</Text>
+          <Text style={ActStyle.subtitle}>Class Name Progress Score</Text>
 
           <List style={ActStyle.listItem}>
             <ListItem>
@@ -52,17 +52,17 @@ function ActStuMyClass({navigation}) {
               <Right>
                 <Text style={ActStyle.score}>
                   {classData.score}
-                  <Image source={require('../assets/images/List.png')} />
+                  <Image source={require('../../../assets/images/List.png')} />
                 </Text>
               </Right>
             </ListItem>
 
             <ListItem footer>
               <Left>
-                <Image source={require('../assets/images/Back.png')} />
+                <Image source={require('../../../assets/images/Back.png')} />
               </Left>
               <Right>
-                <Image source={require('../assets/images/Next.png')} />
+                <Image source={require('../../../assets/images/Next.png')} />
               </Right>
             </ListItem>
           </List>
@@ -75,28 +75,28 @@ function ActStuMyClass({navigation}) {
             onPress={() => {
               navigation.navigate('DashStuAllSchedule');
             }}>
-            <Image source={require('../assets/images/Home-Off.png')} />
+            <Image source={require('../../../assets/images/Home-Off.png')} />
           </Button>
           <Button
             style={ActStyle.footerbtn}
             onPress={() => {
               navigation.navigate('ActStuNewClass');
             }}>
-            <Image source={require('../assets/images/Act-On.png')} />
+            <Image source={require('../../../assets/images/Act-On.png')} />
           </Button>
           <Button
             style={ActStyle.footerbtn}
             onPress={() => {
               navigation.navigate('Chat');
             }}>
-            <Image source={require('../assets/images/Chat-Off.png')} />
+            <Image source={require('../../../assets/images/Chat-Off.png')} />
           </Button>
           <Button
             style={ActStyle.footerbtn}
             onPress={() => {
               navigation.navigate('Profile');
             }}>
-            <Image source={require('../assets/images/Prof-Off.png')} />
+            <Image source={require('../../../assets/images/Prof-Off.png')} />
           </Button>
         </FooterTab>
       </Footer>

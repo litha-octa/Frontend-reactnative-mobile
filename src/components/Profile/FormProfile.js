@@ -10,7 +10,7 @@ import {
 } from 'react-native';
 import {Card, CardItem, Label, Input, Button} from 'native-base';
 import {connect} from 'react-redux';
-import {updateUser} from '../redux/actions/getUser';
+import {updateUser} from '../../redux/actions/getUser';
 import {DOMAIN_API, PORT_API} from '@env';
 
 function FormProfile(props) {
@@ -52,10 +52,13 @@ function FormProfile(props) {
     phone !== currentPhone && phone !== 'Insert Phone Number'
       ? formData.append('phone', phone)
       : null;
-
-    props.updateUser(`${DOMAIN_API}:${PORT_API}/api/v1/usr/${user_id}`,formData);
-    //props.updateUser(`http://192.168.1.5:${PORT_API}/api/v1/usr/${user_id}`, formData);
     console.log(formData);
+    console.log(DOMAIN_API, PORT_API);
+    props.updateUser(
+      `${DOMAIN_API}:${PORT_API}/api/v1/usr/${user_id}`,
+      formData,
+    );
+    // props.updateUser(`http://192.168.99.128:${PORT_API}/api/v1/usr/${user_id}`, formData);
   };
   const ref = useRef();
   useEffect(() => {
@@ -63,7 +66,7 @@ function FormProfile(props) {
       ref.current = true;
     } else {
       if (props.updateUserReducer.isPending) {
-        console.log('Update Propfile : Loading...');
+        console.log('Update Profile : Loading...');
       } else if (props.updateUserReducer.isFulfilled) {
         console.log('Update Profile : Success');
         props.navigation.navigate('Dashboard');
@@ -93,7 +96,7 @@ function FormProfile(props) {
               x
             </Text>
             <Image
-              source={require('../assets/images/profile.png')}
+              source={require('../../assets/images/profile.png')}
               //source= {avatar}
               style={{
                 width: 200,
