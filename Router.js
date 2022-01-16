@@ -32,6 +32,7 @@ import Activity from './src/screens/Activity';
 import ChatRoom from './src/screens/ChatRoom';
 import Notif from './src/screens/Notif';
 import News from './src/screens/News';
+import NewClass from './src/components/Act/student/NewClass';
 import ActStuNewClass from './src/components/Act/student/ActivityStudentNewClass';
 import ActStuMyClass from './src/components/Act/student/ActivityStudent';
 import ActStuClassDetail from './src/components/Act/student/ActivityStudentClassDetail';
@@ -132,7 +133,8 @@ function Router(props) {
         <Stack.Screen name="ActStuMyClass" component={ActStuMyClass} />
         <Stack.Screen name="ActStuClassDetail" component={ActStuClassDetail} />
         <Stack.Screen name="ActFasClassDetail" component={ActFasClassDetail} />
-        <Stack.Screen name="ActFasMember" component={ActFasMember} />
+        <Stack.Screen name="ActFasMember" component={ActFasMember}/>
+        <Stack.Screen name ="NewClass" component={NewClass}/>
 
         <Stack.Screen
           name="ActivityFasilitator"

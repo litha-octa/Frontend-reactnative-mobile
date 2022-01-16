@@ -8,18 +8,20 @@ import {
   TouchableOpacity,
   KeyboardAvoidingView,
 } from 'react-native';
-import {    ImgSlider1,
-            ImgSlider2,
-            ActivityBg,
-            Math,
-        } from '../assets/images';
+import {
+  ImgSlider1,
+  ImgSlider2,
+  ActivityBg,
+  Math,
+  NotifIcon,
+} from '../../assets/images';
 //import {Card, CardItem, Body, Footer, FooterTab, Button} from 'native-base';
 import {connect} from 'react-redux';
 import {DOMAIN_API, PORT_API} from '@env';
-import {getUser} from '../redux/actions/getUser';
-import {DashStyle} from '../components/Dash/DashStyle';
-import Student from '../components/Dash/Student';
-import DashFas from '../components/Dash/Fasilitator';
+import {getUser} from '../../redux/actions/getUser';
+import {DashStyle} from '../../components/Dash/DashStyle';
+import Student from '../../components/Dash/Student';
+import DashFas from '../../components/Dash/Fasilitator';
 import {SliderBox} from 'react-native-image-slider-box';
 
 function Dashboard(props) {
@@ -72,10 +74,7 @@ function Dashboard(props) {
                 width: 35,
                 height: 35,
               }}>
-              <Image
-                source={require('../assets/images/NotifIcon4.png')}
-                style={{width: 30, height: 30}}
-              />
+              <Image source={NotifIcon} style={{width: 30, height: 30}} />
             </TouchableOpacity>
             <Text style={DashStyle.username}>{name}</Text>
             <TextInput

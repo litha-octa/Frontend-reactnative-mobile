@@ -13,9 +13,13 @@ import {
   ActivityIndicator,
 } from 'react-native';
 
-import {LoginStyle} from '../components/auth/LoginStyle';
+import {Google,
+        EyeOn,
+        EyeOff
+      } from '../../assets/images';
+import {LoginStyle} from '../../components/auth/LoginStyle';
 import {Form, Item, Input, Label, Button, Icon} from 'native-base';
-import {login} from '../redux/actions/auth';
+import {login} from '../../redux/actions/auth';
 import {connect} from 'react-redux';
 import {DOMAIN_API, PORT_API} from '@env';
 import { TouchableOpacity } from 'react-native-gesture-handler';
@@ -179,14 +183,6 @@ function Login({...props}) {
           <KeyboardAvoidingView
             // behavior="padding"
             style={{width: componentWidth}}>
-            {/* <Text
-              style={{
-                ...styles.title,
-                marginTop: marginTop,
-                marginBottom: marginBottom,
-              }}>
-              Login
-            </Text> */}
             <Text style={LoginStyle.title}>Login</Text>
             {errorMessageVisible ? (
               <View style={styles.errorMessage}>
@@ -256,11 +252,12 @@ function Login({...props}) {
                   }}
                   disableFullscreenUI={true}
                 />
-                <Icon
-                  name={!showPassword ? 'eye' : 'eye-off'}
+                <Image source={EyeOn} />
+                {/* <Icon
+                  source={!showPassword ? EyeOn : EyeOff}
                   style={styles.eyeToggler}
                   onPress={() => setShowPassword(!showPassword)}
-                />
+                /> */}
               </Item>
             </Form>
 
@@ -283,7 +280,7 @@ function Login({...props}) {
               <Button
                 style={{...styles.buttonGoogle, width: componentWidth}}
                 onPress={() => props.navigation.navigate('Dashboard')}>
-                <Image source={require('../assets/images/logogoogle.png')} />
+                <Image source={Google} />
                 <Text style={styles.buttonLabelGoogle}>Login with Google</Text>
               </Button>
             </KeyboardAvoidingView>
@@ -351,10 +348,10 @@ const styles = StyleSheet.create({
     position: 'absolute',
   },
   eyeToggler: {
-    position: 'absolute',
-    right: 10,
-    top: 17,
-    marginLeft: 12,
+    // position: 'absolute',
+    // right: 10,
+    // top: 17,
+    // marginLeft: 12,
   },
   txtForgot: {
     marginTop: 12,

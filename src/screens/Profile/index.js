@@ -9,11 +9,23 @@ import {
 } from 'react-native';
 import {Card, CardItem, Left, Right, Body} from 'native-base';
 import RBSheet from 'react-native-raw-bottom-sheet';
-import {ProfStyle} from '../components/Profile/ProfStyle';
-import NotifService from './../../NotifService';
+import {ProfStyle} from '../../components/Profile/ProfStyle';
+import NotifService from '../../../NotifService';
 import {connect} from 'react-redux';
 import {DOMAIN_API, PORT_API} from '@env';
-import {Button} from 'react-native-elements/dist/buttons/Button';
+import {
+  ProfileImg,
+  EditIcon,
+  PhoneIcon,
+  Arrow,
+  PinIcon,
+  ChatIcon,
+  NotifIcon,
+  SecurityIcon,
+  StorageIcon,
+  Logout,
+  FAQ,
+} from '../../assets/images';
 
 function Profile(props) {
   const role = props.role;
@@ -27,14 +39,11 @@ function Profile(props) {
       <View style={ProfStyle.Header}>
         <Text style={ProfStyle.caption}>Profile</Text>
         <View style={ProfStyle.headerpic}>
-          <Image
-            source={require('../assets/images/profile.png')}
-            style={ProfStyle.img}
-          />
+          <Image source={ProfileImg} style={ProfStyle.img} />
           <TouchableOpacity
             onPress={() => props.navigation.navigate('FormProfile')}>
             <Image
-              source={require('../assets/images/editicon.png')}
+              source={EditIcon}
               style={{width: 20, height: 20, marginLeft: 80, marginTop: -10}}
             />
           </TouchableOpacity>
@@ -51,7 +60,7 @@ function Profile(props) {
             <Card>
               <CardItem>
                 <Left>
-                  <Image source={require('../assets/images/PhoneIcon.png')} />
+                  <Image source={PhoneIcon} />
                 </Left>
                 <Body>
                   <Text
@@ -61,18 +70,18 @@ function Profile(props) {
                   </Text>
                 </Body>
                 <Right>
-                  <Image source={require('../assets/images/arrow.png')} />
+                  <Image source={Arrow} />
                 </Right>
               </CardItem>
               <CardItem>
                 <Left>
-                  <Image source={require('../assets/images/PINIcon.png')} />
+                  <Image source={PinIcon} />
                 </Left>
                 <Body>
                   <Text style={ProfStyle.menuBtn}>Change Password</Text>
                 </Body>
                 <Right>
-                  <Image source={require('../assets/images/arrow.png')} />
+                  <Image source={Arrow} />
                 </Right>
               </CardItem>
             </Card>
@@ -83,48 +92,48 @@ function Profile(props) {
             <Card>
               <CardItem>
                 <Left>
-                  <Image source={require('../assets/images/ChatIcon.png')} />
+                  <Image source={ChatIcon} />
                 </Left>
                 <Body>
                   <Text style={ProfStyle.menuBtn}>Chat Settings</Text>
                 </Body>
                 <Right>
-                  <Image source={require('../assets/images/arrow.png')} />
+                  <Image source={Arrow} />
                 </Right>
               </CardItem>
               <CardItem>
                 <Left>
-                  <Image source={require('../assets/images/NotifIcon.png')} />
+                  <Image source={NotifIcon} />
                 </Left>
                 <Body>
                   <Text style={ProfStyle.menuBtn}>Push Notifications</Text>
                 </Body>
                 <Right>
-                  <Image source={require('../assets/images/arrow.png')} />
+                  <Image source={Arrow} />
                 </Right>
               </CardItem>
               <CardItem>
                 <Left>
                   <Image
-                    source={require('../assets/images/SecurityIcon.png')}
+                    source={SecurityIcon}
                   />
                 </Left>
                 <Body>
                   <Text style={ProfStyle.menuBtn}>Privacy and Security</Text>
                 </Body>
                 <Right>
-                  <Image source={require('../assets/images/arrow.png')} />
+                  <Image source={Arrow} />
                 </Right>
               </CardItem>
               <CardItem>
                 <Left>
-                  <Image source={require('../assets/images/StorageIcon.png')} />
+                  <Image source={StorageIcon} />
                 </Left>
                 <Body>
                   <Text style={ProfStyle.menuBtn}>Data and Storage</Text>
                 </Body>
                 <Right>
-                  <Image source={require('../assets/images/arrow.png')} />
+                  <Image source={Arrow} />
                 </Right>
               </CardItem>
             </Card>
@@ -134,24 +143,24 @@ function Profile(props) {
             <Card>
               <CardItem>
                 <Left>
-                  <Image source={require('../assets/images/FAQIcon.png')} />
+                  <Image source={FAQ} />
                 </Left>
                 <Body>
                   <Text style={ProfStyle.menuBtn}>F.A.Q</Text>
                 </Body>
                 <Right>
-                  <Image source={require('../assets/images/arrow.png')} />
+                  <Image source={Arrow} />
                 </Right>
               </CardItem>
               <CardItem button onPress={() => refRBSheet.current.open()}>
                 <Left>
-                  <Image source={require('../assets/images/LogoutIcon.png')} />
+                  <Image source={Logout} />
                 </Left>
                 <Body>
                   <Text style={ProfStyle.menuBtn}>LogOut</Text>
                 </Body>
                 <Right>
-                  <Image source={require('../assets/images/arrow.png')} />
+                  <Image source={Arrow} />
                 </Right>
               </CardItem>
             </Card>

@@ -11,9 +11,10 @@ import {
   KeyboardAvoidingView,
   StatusBar,
 } from 'react-native';
+import {Google} from '../../assets/images';
 import {Form, Item, Input, Label, Button, Icon} from 'native-base';
-import CustomModal from '../components/CustomModal';
-import {register} from '../redux/actions/auth';
+import CustomModal from '../../components/CustomModal';
+import {register} from '../../redux/actions/auth';
 import {connect} from 'react-redux';
 import {DOMAIN_API, PORT_API} from '@env';
 
@@ -439,7 +440,7 @@ function Register({...props}) {
               <Text style={styles.buttonLabel}>Register</Text>
             </Button>
             <Button style={{...styles.buttonGoogle, width: componentWidth}}>
-              <Image source={require('../assets/images/logogoogle.png')} />
+              <Image source={Google} />
               <Text style={styles.buttonLabelGoogle}>Register with Google</Text>
             </Button>
           </View>
