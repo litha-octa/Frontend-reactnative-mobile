@@ -34,7 +34,7 @@ function Dashboard(props) {
     //const token = props.token;
     const email = props.email;
     getUser(`${DOMAIN_API}:${PORT_API}/api/v1/usr/${email}`);
-    // getUser(`http://192.168.99.128:${PORT_API}/api/v1/usr/${email}`);
+    // getUser(`http://192.168.1.14:${PORT_API}/api/v1/usr/${email}`);
   }, []);
 
   const ref = useRef();

@@ -76,8 +76,14 @@ export const ActStyle2 = StyleSheet.create({
   },
   filter: {
     backgroundColor: '#EEEEEE',
-    width: '96%',
+    width: '98%',
     alignSelf: 'center',
+    flexDirection:'row',
+    // justifyContent:'space-between',
+  },
+  placeholderStyle:{
+    textAlign:'center',
+    color:'black',
   },
   registerBtn: {
     width: 70,

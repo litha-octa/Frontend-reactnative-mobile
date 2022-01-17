@@ -18,8 +18,10 @@ import FAQ from './FAQIcon.png';
 import Logout from './LogoutIcon.png';
 import EyeOn from './eyeOn.png';
 import EyeOff from './eyeOff.png';
+import ListIcon from './List.png';
 
 export {
+    ListIcon,
     EyeOn,
     EyeOff,
     Logout,

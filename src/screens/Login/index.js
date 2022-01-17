@@ -125,7 +125,7 @@ function Login({...props}) {
   const loginHandler = e => {
     e.preventDefault();
     props.login(`${DOMAIN_API}:${PORT_API}/api/v1/auth/`, dataLogin);
-    // props.login(`http://192.168.99.128:${PORT_API}/api/v1/auth/`, dataLogin);
+    // props.login(`http://192.168.1.14:${PORT_API}/api/v1/auth/`, dataLogin);
     console.log(dataLogin);
   };
 

@@ -1,5 +1,5 @@
 import React, {useState, useEffect, useRef} from 'react';
-import {View, Text, Picker, TextInput, Image, ScrollView} from 'react-native';
+import {View, Text, RefreshControl, TextInput, Image, ScrollView} from 'react-native';
 import axios from 'axios';
 import {DOMAIN_API, PORT_API} from '@env';
 import {connect} from 'react-redux';
@@ -18,7 +18,13 @@ import {
   Button,
 } from 'native-base';
 import getNewClass from '../../../redux/actions/newClass';
+import {ListIcon} from '../../../assets/images';
 import PercentageCircle from 'react-native-percentage-circle';
+import {Dropdown} from 'react-native-element-dropdown';
+
+const wait = timeout => {
+  return new Promise(resolve => setTimeout(resolve, timeout));
+};
 
 function NewClass(props) {
   const classData = {
@@ -26,6 +32,34 @@ function NewClass(props) {
     progress: 80,
     score: '80',
   };
+  const data = [
+    {label: 'Finance', value: '1'},
+    {label: 'History', value: '2'},
+    {label: 'Math', value: '3'},
+    {label: 'Psychology', value: '4'},
+    {label: 'Science', value: '5'},
+    {label: 'Software', value: '6'},
+  ];
+  const levelData = [
+    {label: 'Advance', value: '1'},
+    {label: 'Beginner', value: '2'},
+    {label: 'Intermediate', value: '3'},
+  ];
+  const priceData = [
+    {label: 'Free', value: '0'},
+    {label: '$10', value: '10'},
+    {label: '$20', value: '20'},
+  ];
+
+  const [category, setCategory] = useState('');
+  const [level, setLevel] = useState('');
+  const [price, setPrice] = useState('');
+  const [refreshing, setRefreshing] = React.useState(false);
+  
+  const onRefresh = React.useCallback(() => {
+    setRefreshing(true);
+    wait(2000).then(() => setRefreshing(false));
+  }, []);
   //   const {getNewClass} = props;
   //console.log(getNewClass);
 //   const class_name = props.class_name;
@@ -57,32 +91,52 @@ function NewClass(props) {
   //     props.getNewClassReducer.isRejected,
   //   ]);
   return (
-    <View style={ActStyle2.body}>
-      <View style={ActStyle2.header}>
-        <Text style={ActStyle2.title}> Activity</Text>
-      </View>
-      <ScrollView>
+    <ScrollView
+      refreshControl={
+        <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+      }>
+      <View style={ActStyle2.body}>
+        <View style={ActStyle2.header}>
+          <Text style={ActStyle2.title}> Activity</Text>
+        </View>
+
         <View>
           <Text style={ActStyle2.subtitle}>My Class</Text>
-          <Text style={ActStyle2.subtitle}>Class Name Progress Score</Text>
+          <View
+            style={{
+              flexDirection: 'row',
+              justifyContent: 'space-between',
+              width: '90%',
+            }}>
+            <Text style={ActStyle2.subtitle}>Class Name</Text>
+            <Text style={ActStyle2.subtitle}> Progress</Text>
+            <Text style={ActStyle2.subtitle}> Score</Text>
+          </View>
         </View>
 
         <View>
           <List style={ActStyle2.listItem}>
             <ListItem>
-              <Left>
-                <Text>{classData.name}</Text>
-              </Left>
-              <Body>
-                <PercentageCircle radius={20} percent={50} color={'#3498db'}>
-                </PercentageCircle>
-              </Body>
-              <Right>
-                <Text style={ActStyle2.score}>
-                  {classData.score}
-                  <Image source={require('../../../assets/images/List.png')} />
-                </Text>
-              </Right>
+              <View
+                style={{
+                  flexDirection: 'row',
+                  justifyContent: 'space-between',
+                  width: '90%',
+                }}>
+                <Left>
+                  <Text>{classData.name}</Text>
+                </Left>
+                <Body>
+                  <PercentageCircle
+                    radius={20}
+                    percent={50}
+                    color={'#3498db'}></PercentageCircle>
+                </Body>
+                <Right>
+                  <Text style={ActStyle2.score}>{classData.score}</Text>
+                </Right>
+              </View>
+              <Image style={{marginLeft: '8%'}} source={ListIcon} />
             </ListItem>
           </List>
           <Text
@@ -101,43 +155,67 @@ function NewClass(props) {
               <Text style={ActStyle2.buttonLabel}> Search </Text>
             </Button>
             <View style={ActStyle2.filter}>
-              <Text style={ActStyle2.viewAll}>
-                {/* <Item
-                  Select
-                  style={{
-                    width: 10,
-                    backgroundColor: 'blue',
-                    overflow: 'hidden',
-                  }}/> */}
-                {/* <Select
-                  mode="dialog"
-                  placeholder="Select your SIM"
-                  selectedValue={category}
-                  onValueChange={e => setCategory(e)}>
-                  <Select.Item label="Category" value="0" />
-                  <Select.Item label="Finance" value="1" />
-                  <Select.Item label="History" value="2" />
-                  <Select.Item label="Math" value="3" />
-                  <Select.Item label="Psychology" value="4" />
-                  <Select.Item label="Science" value="5" />
-                  <Select.Item label="Software" value="6" />
-                </Select> */}
-                {/* <Picker
-                  selectedValue={category}
-                  onValueChange={e => setCategory(e)}>
-                  <Picker.Item label="Java" value="java" />
-                  <Picker.Item label="JavaScript" value="js" />
-                </Picker>
-                 */}
-                Categories Level Pricing
-              </Text>
+              <Dropdown
+                style={{width: '40%'}}
+                placeholderStyle={ActStyle2.placeholderStyle}
+                selectedTextStyle={ActStyle2.placeholderStyle}
+                data={data}
+                search
+                maxHeight={300}
+                labelField="label"
+                valueField="value"
+                placeholder="Categories"
+                searchPlaceholder="Search..."
+                value={category}
+                onChange={item => {
+                  setCategory(item.value);
+                }}
+              />
+              <Dropdown
+                style={{width: '30%'}}
+                placeholderStyle={ActStyle2.placeholderStyle}
+                selectedTextStyle={ActStyle2.placeholderStyle}
+                data={levelData}
+                maxHeight={200}
+                maxWidth={400}
+                labelField="label"
+                valueField="value"
+                placeholder="Level"
+                value={level}
+                onChange={item => {
+                  setLevel(item.value);
+                }}
+              />
+              <Dropdown
+                style={{width: '30%'}}
+                placeholderStyle={ActStyle2.placeholderStyle}
+                selectedTextStyle={ActStyle2.placeholderStyle}
+                data={priceData}
+                maxHeight={200}
+                labelField="label"
+                valueField="value"
+                placeholder="Price"
+                value={price}
+                onChange={item => {
+                  setPrice(item.value);
+                }}
+              />
             </View>
             <List style={ActStyle2.listItem}>
               <ListItem>
-                <Text>ClassName Level Pricing</Text>
+                <View
+                  style={{
+                    flexDirection: 'row',
+                    justifyContent: 'space-between',
+                    width: '80%',
+                  }}>
+                  <Text>Class Name</Text>
+                  <Text>Level</Text>
+                  <Text>Pricing</Text>
+                </View>
               </ListItem>
               <ListItem>
-                {/* <Text>{class_name}</Text> */}
+                <Text>class_name</Text>
                 <Text style={{marginLeft: 10}}> Intermediate $10</Text>
                 <Button success style={ActStyle2.registerBtn}>
                   <Text style={ActStyle2.buttonLabel}> Success </Text>
@@ -146,8 +224,8 @@ function NewClass(props) {
             </List>
           </Container>
         </View>
-      </ScrollView>
-    </View>
+      </View>
+    </ScrollView>
   );
 }
 // const mapStateToProps = state => ({
